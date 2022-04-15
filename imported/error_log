@@ -1,0 +1,27 @@
+[26-Jul-2021 21:01:11 UTC] PHP Notice:  Undefined variable: _SESSION in /home/fcthhssa/public_html/meeting/member/logout.php on line 7
+[26-Jul-2021 21:01:11 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/fcthhssa/public_html/meeting/member/logout.php on line 9
+[27-Jul-2021 14:57:49 UTC] PHP Notice:  Undefined variable: _SESSION in /home/fcthhssa/public_html/meeting/member/logout.php on line 7
+[27-Jul-2021 14:57:49 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/fcthhssa/public_html/meeting/member/logout.php on line 9
+[27-Jul-2021 15:01:12 UTC] PHP Notice:  Undefined variable: lastname in /home/fcthhssa/public_html/meeting/member/process_addnew.php on line 38
+[27-Jul-2021 15:11:40 UTC] PHP Notice:  Undefined variable: _SESSION in /home/fcthhssa/public_html/meeting/member/logout.php on line 7
+[27-Jul-2021 15:11:40 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/fcthhssa/public_html/meeting/member/logout.php on line 9
+[27-Jul-2021 15:17:17 UTC] PHP Notice:  Undefined variable: _SESSION in /home/fcthhssa/public_html/meeting/member/logout.php on line 7
+[27-Jul-2021 15:17:17 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/fcthhssa/public_html/meeting/member/logout.php on line 9
+[29-Jul-2021 12:23:11 UTC] PHP Notice:  Undefined variable: lastname in /home/fcthhssa/public_html/meeting/member/process_addnew.php on line 38
+[29-Jul-2021 12:23:52 UTC] PHP Notice:  Undefined variable: _SESSION in /home/fcthhssa/public_html/meeting/member/logout.php on line 7
+[29-Jul-2021 12:23:52 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/fcthhssa/public_html/meeting/member/logout.php on line 9
+[29-Jul-2021 22:29:32 UTC] PHP Notice:  Undefined variable: _SESSION in /home/fcthhssa/public_html/meeting/member/logout.php on line 7
+[29-Jul-2021 22:29:32 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/fcthhssa/public_html/meeting/member/logout.php on line 9
+[30-Jul-2021 08:02:57 UTC] PHP Notice:  Undefined variable: _SESSION in /home/fcthhssa/public_html/meeting/member/logout.php on line 7
+[30-Jul-2021 08:02:57 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/fcthhssa/public_html/meeting/member/logout.php on line 9
+[06-Aug-2021 12:01:37 UTC] PHP Notice:  Undefined index: uide in /home/fcthhssa/public_html/meeting/include/sessioncheck.php on line 3
+[06-Aug-2021 12:01:37 UTC] PHP Notice:  Undefined index: user_email in /home/fcthhssa/public_html/meeting/member/dash.php on line 7
+[06-Aug-2021 12:01:37 UTC] PHP Notice:  Undefined index: uid in /home/fcthhssa/public_html/meeting/member/dash.php on line 10
+[09-Aug-2021 22:56:29 UTC] PHP Notice:  Undefined variable: _SESSION in /home/fcthhssa/public_html/meeting/member/logout.php on line 7
+[10-Aug-2021 09:34:57 UTC] PHP Notice:  Undefined index: last_login_timestamp in /home/fcthhssa/public_html/meeting/include/sessioncheck.php on line 13
+[10-Aug-2021 10:34:18 UTC] PHP Notice:  Undefined index: event_status in /home/fcthhssa/public_html/meeting/member/process_addnew.php on line 20
+[10-Aug-2021 10:34:18 UTC] PHP Notice:  Undefined variable: lastname in /home/fcthhssa/public_html/meeting/member/process_addnew.php on line 39
+[10-Aug-2021 10:48:47 UTC] PHP Notice:  Undefined index: event_status in /home/fcthhssa/public_html/meeting/member/process_addnew.php on line 20
+[10-Aug-2021 10:48:47 UTC] PHP Notice:  Undefined variable: lastname in /home/fcthhssa/public_html/meeting/member/process_addnew.php on line 39
+[10-Aug-2021 10:51:04 UTC] PHP Notice:  Undefined variable: lastname in /home/fcthhssa/public_html/meeting/member/process_addnew.php on line 39
+[10-Aug-2021 10:59:42 UTC] PHP Notice:  Undefined variable: lastname in /home/fcthhssa/public_html/meeting/member/process_addnew.php on line 39
