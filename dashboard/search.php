@@ -76,7 +76,7 @@ $role = $_SESSION['role'];
                     <div class="container-fluid d-flex flex-column p-0">
                         <hr class="sidebar-divider my-0">
                         <ul class="navbar-nav text-light" id="accordionSidebar-1">
-                            <li class="nav-item"><a class="nav-link text-muted" href="welcome.html"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="welcome.php"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
                             <hr class="sidebar-divider">
                             <div class="sidebar-heading">
                                 <p class="mb-0">INTERFACE</p>
@@ -85,8 +85,8 @@ $role = $_SESSION['role'];
                                 <div><a class="btn btn-link text-light nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button"><i class="fas fa-users-cog"></i>&nbsp;<span>Application</span></a>
                                     <div class="collapse" id="collapse-1">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="newapp.html">New Application</a><a class="collapse-item" href="editapp.html">Search/Edit Application</a><a class="collapse-item" href="printphotocard.html">Print Photocard</a>
-                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="cards.html">Batch Summary</a><a class="collapse-item" href="rebatch.html"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="rebatch.html"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="../dashboard/application/newapp.php">New Application</a><a class="collapse-item" href="editapp.php">Search/Edit Application</a><a class="collapse-item" href="printphotocard.php">Print Photocard</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="cards.html">Batch Summary</a><a class="collapse-item" href="rebatch.php"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="rebatch.php"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@ $role = $_SESSION['role'];
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button"><i class="fas fa-wrench"></i>&nbsp;<span>Configuration</span></a>
                                     <div class="collapse" id="collapse-3">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--red);">BATCHING CONFIG:</h6><a class="collapse-item" href="hallbatchconfig.html">Date/ Batch Config</a><a class="collapse-item" href="hallbatchconfig.html">Hall Capacity Config</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">BATCHING CONFIG:</h6><a class="collapse-item" href="hallbatchconfig.php">Date/ Batch Config</a><a class="collapse-item" href="hallbatchconfig.php">Hall Capacity Config</a>
                                             <h6 class="collapse-header" style="color: var(--red);">USER CONFIG:</h6><a class="collapse-item" href="404.html">Add New User</a><a class="collapse-item" href="blank.html">Privilege Config</a>
                                         </div>
                                     </div>
@@ -123,7 +123,7 @@ $role = $_SESSION['role'];
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-5" href="#collapse-5" role="button"><i class="fas fa-envelope"></i>&nbsp;<span>Message Center</span></a>
                                     <div class="collapse" id="collapse-5">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--red);">messaging center:</h6><a class="collapse-item" href="login.html">Compose Message</a><a class="collapse-item" href="forgot-password.html">View Messages</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">messaging center:</h6><a class="collapse-item" href="#">Compose Message</a><a class="collapse-item" href="#">View Messages</a>
                                             <h6 class="collapse-header" style="color: var(--red);">CONFIG:</h6><a class="collapse-item" href="404.html">Message Center Config</a>
                                         </div>
                                     </div>
@@ -136,9 +136,9 @@ $role = $_SESSION['role'];
                                 </div>
                             </li>
                             <li class="nav-item" style="font-size: 0px;">
-                                <hr style="color: var(--white);border-radius: 0px;border-width: 6px;border-top-width: 1px;border-top-color: rgba(252,250,250,0.1);width: 200px;"><a class="nav-link" href="charts.html"><i class="fas fa-chart-area"></i><span>&nbsp;Charts</span></a>
+                                <hr style="color: var(--white);border-radius: 0px;border-width: 6px;border-top-width: 1px;border-top-color: rgba(252,250,250,0.1);width: 200px;"><a class="nav-link" href="#"><i class="fas fa-chart-area"></i><span>&nbsp;Charts</span></a>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="tables.html"><i class="fas fa-table"></i><span>&nbsp;Tables</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>&nbsp;Tables</span></a></li>
                             <hr class="sidebar-divider">
                         </ul>
                         <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle-1" type="button"></button></div>
@@ -152,7 +152,7 @@ $role = $_SESSION['role'];
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <form action= "search.php" method="GET" class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Enter AppID to Search...">
+                            <div class="input-group"><input class="bg-light form-control border-0 small" name="searchparam" type="text" placeholder="Enter AppID to Search...">
                                 <div class="input-group-append"><button name="searchbtn" class="btn btn-primary py-0" type="button" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
                             </div>
                         </form>
@@ -291,13 +291,13 @@ $role = $_SESSION['role'];
                                         </tr>
                                     </thead>"
                                     ;
-                                    while ($row = mysqli_fetch_array($result)){
+                                    while ($row = mysqli_fetch_assoc($result)){
                                         
                                         echo "
                                     <tbody>
                                         <tr>
                                             <td>".$i++."</td>
-                                            <td><img class='rounded-circle-mr-2' width='30' height='30' src=".$row['photolink'].">".$row['sname']." ".$row['fname']." ".$row['oname']."</td>
+                                            <td><img class='rounded-circle mr-2' width='30' height='30' src=".$row['photolink'].">".$row['sname']." ".$row['fname']." ".$row['oname']."</td>
                                             <td>".$row['appid']."</td>
                                             <td>".$row['form_no']."</td>
                                             <td>".$row['state']."</td>
