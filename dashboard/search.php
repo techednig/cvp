@@ -1,3 +1,40 @@
+<?php
+include_once ("../include/server.php");
+include_once ("../include/sessioncheck.php");
+include_once ("../include/p1checker.php");
+
+//Recover Info From Session
+$a_email = $_SESSION['a_email'];
+$a_email = base64_decode($a_email);
+
+$uid = base64_decode($_SESSION['uid']);
+$privilege = $_SESSION['privilege'];
+$a_fname = $_SESSION['a_fname'];
+$a_lname = $_SESSION['a_lname'];
+$role = $_SESSION['role'];
+//$fullname = $a_fname, " ", $a_lname;
+
+//<?Php Echo $fullname ; 
+
+//print_r ($privilege); 
+//Fetch Registration & User Info of Associated user_id
+//$queryuser = "SELECT adminusers.a_fname, adminusers.a_lname, roles.role FROM adminusers, roles WHERE adminusers.user_id = $uid AND roles.roleid = $privilege";
+//$user_row = mysqli_query($db, $queryuser);
+//$row_user = mysqli_fetch_array($user_row, MYSQLI_ASSOC);
+
+//$a_fname = $row_user["a_fname"] ;
+//$a_lname = $row_user["a_lname"] ;
+//$role = $row_user["role"] ;
+
+//$_SESSION['a_fname'] = $a_fname;
+//$_SESSION['a_lname'] = $a_lname;
+//$_SESSION['role'] = $role;
+
+
+mysqli_close($db);
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -114,9 +151,9 @@
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <form action= "search.php" method="GET" class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Enter AppID to Search...">
-                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
+                                <div class="input-group-append"><button name="searchbtn" class="btn btn-primary py-0" type="button" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
                             </div>
                         </form>
                         <ul class="navbar-nav flex-nowrap ml-auto">
@@ -199,7 +236,7 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br>&lt;?Php Echo $Fullname; ?&gt;<br><br></span><img class="border rounded-circle img-profile" src="assets/img/avatars/jpeg1.jpg"></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br><?Php Echo $a_fname, " ", $a_lname; ?><br><br></span><img class="border rounded-circle img-profile" src="assets/img/avatars/jpeg1.jpg"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="../config/logout.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
@@ -228,8 +265,17 @@
                                     <div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
                                 </div>
                             </div>
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTable">
+                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                           
+                           <?php 
+                           if (isset($_GET['searchbtn'])) {
+    $searchparam = mysqli_real_escape_string($db, $_GET['searchparam']);
+    $query = "SELECT * FROM 'candidates' INNER JOIN 'batchinfo' ON candidates.batchid = batchinfo.batchid WHERE candidates.appid OR candidates.sname OR candidates.form_no OR candidates.phone1 = %$searchparam% ORDER BY candidates.appid DESC";
+   $i=1;
+   if($result = mysqli_query($db, $query)){
+       if (mysqli_num_rows($result) > 0){
+           echo "
+           <table class='table my-0' id='dataTable'>
                                     <thead>
                                         <tr>
                                             <th>Full Name</th>
@@ -242,127 +288,56 @@
                                             <th>EntryBy</th>
                                             <th>Action</th>
                                         </tr>
-                                    </thead>
+                                    </thead>"
+                                    ;
+                                    while ($row = mysqli_fetch_array($result)){
+                                        
+                                        echo "
                                     <tbody>
                                         <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar1.jpeg">Airi Satou</td>
-                                            <td>202210552</td>
-                                            <td>52458552</td>
-                                            <td>4652</td>
-                                            <td>2008/11/28</td>
-                                            <td>N10,000</td>
-                                            <td>Cell 7</td>
-                                            <td>Cell 8</td>
+                                            <td><img class="rounded-circle mr-2" width="30" height="30" src=".$row['candidates.photolink'].">.$row['candidate.sname'].,' ',.$row['candidate.fname'].,' ',.$row['candidate.oname'].</td>
+                                            <td>".$row['candidates.appid']."</td>
+                                            <td>".$row['candidates.form_no']."</td>
+                                            <td>".$row['candidates.state']."</td>
+                                            <td>".$row['candidates.progname']."</td>
+                                            <td>".$row['batchinfo.bcode']."</td>
+                                            <td>".$row['batchinfo.edate']."</td>
+                                            <td>".$row['candidates.entryby']."</td>
                                             <td>
                                                 <div>
-                                                    <div class="btn-toolbar">
-                                                        <div class="btn-group" role="group"><button class="btn btn-primary" type="button" style="border-radius: 17px;"><i class="fa fa-edit"></i></button><button class="btn btn-primary" type="button" style="border-radius: 26px;"><i class="fa fa-recycle"></i></button></div>
-                                                        <div class="btn-group" role="group" style="width: 14.667px;height: 60px;"><button class="btn btn-primary" type="button" style="border-radius: 40px;background: var(--red);"><i class="fa fa-trash-o"></i></button><button class="btn btn-primary" type="button" style="border-radius: 31px;width: 121.1354px;background: var(--success);"><span><i class="fa fa-user-plus"></i><i class="fas fa-microphone-alt"></i></span></button></div>
+                                                    <div class='btn-toolbar'>
+                                                        <div class='btn-group' role='group'><button class='btn btn-primary' type='button' style='border-radius: 17px;'><i class='fa fa-edit'></i></button><button class='btn btn-primary' type='button' style='border-radius: 26px;'><i class='fa fa-recycle'></i></button></div>
+                                                        <div class='btn-group' role='group' style='width: 14.667px;height: 60px;'><button class='btn btn-primary' type='button' style='border-radius: 40px;background: var(--red);'><i class='fa fa-trash-o'></i></button><button class='btn btn-primary' type='button' style='border-radius: 31px;width: 121.1354px;background: var(--success);'><span><i class='fa fa-user-plus'></i><i class='fas fa-microphone-alt'></i></span></button></div>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar2.jpeg">Angelica Ramos</td>
-                                            <td>Registration</td>
-                                            <td>58545852</td>
-                                            <td>4652</td>
-                                            <td>2009/10/09<br></td>
-                                            <td>N1,200,000</td>
-                                            <td>Cell 7</td>
-                                            <td>Cell 8</td>
-                                            <td>Cell 9</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar3.jpeg">Ashton Cox</td>
-                                            <td>202210560<br></td>
-                                            <td>45855568</td>
-                                            <td>4652</td>
-                                            <td>2009/01/12<br></td>
-                                            <td>N600,000</td>
-                                            <td>Cell 7</td>
-                                            <td>Cell 8</td>
-                                            <td>Cell 9</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar4.jpeg">Bradley Greer</td>
-                                            <td>202210559<br></td>
-                                            <td>98557752</td>
-                                            <td>4652</td>
-                                            <td>2012/10/13<br></td>
-                                            <td>N8,132,000</td>
-                                            <td>Cell 7</td>
-                                            <td>Cell 8</td>
-                                            <td>Cell 9</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar5.jpeg">Brenden Wagner</td>
-                                            <td>202210558<br></td>
-                                            <td>45875625</td>
-                                            <td>4652</td>
-                                            <td>2011/06/07<br></td>
-                                            <td>$206,850</td>
-                                            <td>Cell 7</td>
-                                            <td>Cell 8</td>
-                                            <td>Cell 9</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar1.jpeg">Brielle Williamson</td>
-                                            <td>202210557<br></td>
-                                            <td>New York</td>
-                                            <td>61</td>
-                                            <td>2012/12/02<br></td>
-                                            <td>$372,000</td>
-                                            <td>Cell 7</td>
-                                            <td>Cell 8</td>
-                                            <td>Cell 9</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar2.jpeg">Bruno Nash<br></td>
-                                            <td>202210556<br></td>
-                                            <td>London</td>
-                                            <td>38</td>
-                                            <td>2011/05/03<br></td>
-                                            <td>$163,500</td>
-                                            <td>Cell 7</td>
-                                            <td>Cell 8</td>
-                                            <td>Cell 9</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar3.jpeg">Caesar Vance</td>
-                                            <td>202210553<br></td>
-                                            <td>New York</td>
-                                            <td>21</td>
-                                            <td>2011/12/12<br></td>
-                                            <td>$106,450</td>
-                                            <td>Cell 7</td>
-                                            <td>Cell 8</td>
-                                            <td>Cell 9</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar4.jpeg">Cara Stevens</td>
-                                            <td>202210554<br></td>
-                                            <td>New York</td>
-                                            <td>46</td>
-                                            <td>2011/12/06<br></td>
-                                            <td>$145,600</td>
-                                            <td>Cell 7</td>
-                                            <td>Cell 8</td>
-                                            <td>Cell 9</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar5.jpeg">Cedric Kelly</td>
-                                            <td>202210555<br><br></td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012/03/29<br></td>
-                                            <td>$433,060</td>
-                                            <td>Cell 7</td>
-                                            <td>Cell 8</td>
-                                            <td>Cell 9</td>
-                                        </tr>
-                                    </tbody>
+                                        
+                                    </tbody>"
+                                    
+                                }
+                                echo "</table>";
+                               // echo              "</div>";
+                 
+     // Free result set
+                    mysqli_free_result($result);
+                    }
+                    else{
+                    echo "Sorry! You Have Not Searched For Candidate.";
+                    }
+                    } else{
+                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($db);
+                    }
+                    // Close connection
+    
+                    mysqli_close($db);
+    ?>
                                 </table>
+       }
+   } 
+}    
+                           
+ 
                             </div>
                             <div class="row">
                                 <div class="col-md-6 align-self-center">
