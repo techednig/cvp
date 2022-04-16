@@ -31,7 +31,7 @@ $role = $_SESSION['role'];
 //$_SESSION['role'] = $role;
 
 
-mysqli_close($db);
+//mysqli_close($db);
 
 ?>
 
@@ -269,15 +269,16 @@ mysqli_close($db);
                            
                            <?php 
                            if (isset($_GET['searchbtn'])) {
-    $searchparam = mysqli_real_escape_string($db, $_GET['searchparam']);
-    $query = "SELECT * FROM 'candidates' INNER JOIN 'batchinfo' ON candidates.batchid = batchinfo.batchid WHERE candidates.appid OR candidates.sname OR candidates.form_no OR candidates.phone1 = %$searchparam% ORDER BY candidates.appid DESC";
+    $search = $_GET['searchparam'];
+    $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.form_no LIKE '%{$search}%' OR candidates.appid LIKE '%{$search}%' OR candidates.sname LIKE '%{$search}%' OR candidates.phone1 LIKE '%{$search}%' ORDER BY candidates.appid DESC";
    $i=1;
-   if($result = mysqli_query($db, $query)){
+   if($result = mysqli_query($db, $sql)){
        if (mysqli_num_rows($result) > 0){
            echo "
            <table class='table my-0' id='dataTable'>
                                     <thead>
                                         <tr>
+                                            <th>S/N</th>
                                             <th>Full Name</th>
                                             <th>AppID</th>
                                             <th>FormNo</th>
@@ -295,14 +296,15 @@ mysqli_close($db);
                                         echo "
                                     <tbody>
                                         <tr>
-                                            <td><img class="rounded-circle mr-2" width="30" height="30" src=".$row['candidates.photolink'].">.$row['candidate.sname'].,' ',.$row['candidate.fname'].,' ',.$row['candidate.oname'].</td>
-                                            <td>".$row['candidates.appid']."</td>
-                                            <td>".$row['candidates.form_no']."</td>
-                                            <td>".$row['candidates.state']."</td>
-                                            <td>".$row['candidates.progname']."</td>
-                                            <td>".$row['batchinfo.bcode']."</td>
-                                            <td>".$row['batchinfo.edate']."</td>
-                                            <td>".$row['candidates.entryby']."</td>
+                                            <td>".$i++."</td>
+                                            <td><img class='rounded-circle-mr-2' width='30' height='30' src=".$row['photolink'].">".$row['sname']." ".$row['fname']." ".$row['oname']."</td>
+                                            <td>".$row['appid']."</td>
+                                            <td>".$row['form_no']."</td>
+                                            <td>".$row['state']."</td>
+                                            <td>".$row['progname']."</td>
+                                            <td>".$row['bcode']."</td>
+                                            <td>".$row['edate']."</td>
+                                            <td>".$row['entryby']."</td>
                                             <td>
                                                 <div>
                                                     <div class='btn-toolbar'>
@@ -313,7 +315,7 @@ mysqli_close($db);
                                             </td>
                                         </tr>
                                         
-                                    </tbody>"
+                                    </tbody>";
                                     
                                 }
                                 echo "</table>";
@@ -323,7 +325,7 @@ mysqli_close($db);
                     mysqli_free_result($result);
                     }
                     else{
-                    echo "Sorry! You Have Not Searched For Candidate.";
+                    echo "Sorry! No Result Found.";
                     }
                     } else{
                     echo "ERROR: Could not able to execute $sql. " . mysqli_error($db);
@@ -331,14 +333,10 @@ mysqli_close($db);
                     // Close connection
     
                     mysqli_close($db);
+         } 
     ?>
-                                </table>
-       }
-   } 
-}    
-                           
- 
-                            </div>
+                             
+                             </div>
                             <div class="row">
                                 <div class="col-md-6 align-self-center">
                                     <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>

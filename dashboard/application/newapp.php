@@ -463,6 +463,7 @@ $a_lname = $_SESSION['a_lname'];
                                 <table class='table table-striped table-bordered table-sm'>
                                     <thead>
                                         <tr>
+                                            <th class='text-dark bg-info'>S/N</th>
                                             <th class='text-dark bg-info'>AppID</th>
                                             <th class='text-dark bg-info'>Surname</th>
                                             <th class='text-dark bg-info'>First Name</th>
@@ -476,6 +477,7 @@ $a_lname = $_SESSION['a_lname'];
                                         echo "
                                     <tbody>
                                         <tr>
+                                            <td>".$i++."</td>
                                             <td>".$row['appid']."</td>
                                             <td>".$row['sname']."</td>
                                             <td>".$row['fname']."</td>
