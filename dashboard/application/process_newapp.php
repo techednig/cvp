@@ -25,8 +25,18 @@ $state = mysqli_real_escape_string($db, $_POST['state']);
 $nationality = mysqli_real_escape_string($db, $_POST['nationality']);
 
 //Check for duplicate form number
-include ("checkdup_form.php");
+$sql = "SELECT form_no FROM candidates WHERE form_no = $form_no";
+$result = mysqli_query($db, $sql);
+$row = mysqli_num_rows($result);
 
+IF ($row >= 2){
+    $msg = "The Form Number:".$form_no."Already Exists. Please Check For Duplicate";
+    $msgEncoded = base64_encode($msg);
+header("location:newapp.php?msg=$msgEncoded");
+}
+ELSE {
+
+    // Start Checking Passport Info and Insert Record
 if (isset($_POST['formsubmit'])) {
 
   $filename = $_FILES["fileToUpload"]["name"];
@@ -58,3 +68,5 @@ header("location:newapp.php?msg=$msgEncoded");
 }
 
 }
+}
+?>

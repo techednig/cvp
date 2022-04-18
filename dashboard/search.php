@@ -153,7 +153,7 @@ $role = $_SESSION['role'];
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <form action= "search.php" method="GET" class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group"><input class="bg-light form-control border-0 small" name="searchparam" type="text" placeholder="Enter AppID to Search...">
-                                <div class="input-group-append"><button name="searchbtn" class="btn btn-primary py-0" type="button" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
+                                <div class="input-group-append"><button name="searchbtn" class="btn btn-primary py-0" type="submit" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
                             </div>
                         </form>
                         <ul class="navbar-nav flex-nowrap ml-auto">

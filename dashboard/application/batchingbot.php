@@ -24,7 +24,7 @@ $countbatchid = mysqli_num_rows($result);
 
 //start Batching
 
-IF ($countbatchid < $hallcap){
+IF ($countbatchid <= $hallcap){
     $sql = "UPDATE candidates SET batchid = $maxbatchid WHERE appid = $new_id";
     mysqli_query($db, $sql);
     $sql = "INSERT INTO batchtable (appid, batchid, seatno, updatedby) VALUES ('$new_id', '$maxbatchid', '$countbatchid' + 1, '$uid')";
