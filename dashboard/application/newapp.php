@@ -423,11 +423,9 @@ $a_lname = $_SESSION['a_lname'];
 
             <!-- Upload image input-->
             <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                <input id="fileToUpload" type="file" name="fileToUpload" onchange="readURL(this);" class="form-control border-0">
+                <input id="fileToUploadd" type="file" name="fileToUpload" onchange="readURL(this);" class="form-controll border-0">
                 
-                <div class="input-group-append">
-                    <label for="Upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                </div>
+                
             </div>
 
             <!-- Uploaded image area-->

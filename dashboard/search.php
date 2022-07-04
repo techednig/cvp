@@ -297,7 +297,7 @@ $role = $_SESSION['role'];
                                     <tbody>
                                         <tr>
                                             <td>".$i++."</td>
-                                            <td><img class='rounded-circle mr-2' width='30' height='30' src=".$row['photolink'].">".$row['sname']." ".$row['fname']." ".$row['oname']."</td>
+                                            <td><img class='rounded-circle mr-2' width='30' height='30' src=application/".$row['photolink']."> ".$row['sname']." ".$row['fname']." ".$row['oname']."</td>
                                             <td>".$row['appid']."</td>
                                             <td>".$row['form_no']."</td>
                                             <td>".$row['state']."</td>

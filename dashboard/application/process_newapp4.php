@@ -1,8 +1,11 @@
 <?php
-$target_dir = "dashboard/img_passport/";
+$target_dir = "img_passport";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+//$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+$imageFileTypes = $_FILES["fileToUpload"]["type"];
+$imageFileTypess = explode("/",$imageFileTypes);
+$imageFileType = $imageFileTypess[0];
 
 include ("../../include/server.php");
 include ("../../include/sessioncheck.php");
@@ -65,8 +68,9 @@ if ($_FILES["fileToUpload"]["size"] > 2000000) {
 }
 
 // Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
+/*if($imageFileType != "jpg" && $imageFileType != "JPG" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" ) {*/
+  if($imageFileType != "image"){
   $msg = "Sorry, only JPG, JPEG, PNG & GIF Files are Allowed.";
   $uploadOk = 0;
                         $msgEncoded = base64_encode($msg);
@@ -80,7 +84,14 @@ if ($uploadOk == 0) {
                 header("location:newapp.php?msg=$msgEncoded");
 // if everything is ok, try to upload file
 } else {
-  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+  if(is_uploaded_file($_FILES["fileToUpload"]["tmp_name"])){
+    //echo "yes oooo";
+    //exit;
+  } else{
+    echo "not uploaded";
+    exit;
+  }
+  if (move_uploaded_file($_FILES["fileToUpload"]["name"], $target_dir)) {
     $sql = "INSERT INTO  candidates (form_no, sname, fname, oname, gender, state, phone1, phone2, email, nationality, dob, progname, progyr, stream, submit_state, photolink, entryby, updatedby) 
 VALUES ('$form_no', '$sname', '$fname', '$oname', '$gender', '$state', '$phone1', '$phone2', '$email', '$nationality', '$dob', '$progname', '$progyr', '$stream', '1', '$target_file', '$uid', '$uid')";
 $insert = mysqli_query($db, $sql);

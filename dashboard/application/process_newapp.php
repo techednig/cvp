@@ -4,6 +4,7 @@ include ("../../include/server.php");
 include ("../../include/sessioncheck.php");
 include ("../../include/p1checker.php");
 
+
 //Recover From Session
 //$user_email = $_SESSION['user_email'];
 //$user_email = base64_decode($user_email);
@@ -29,12 +30,12 @@ $sql = "SELECT form_no FROM candidates WHERE form_no = $form_no";
 $result = mysqli_query($db, $sql);
 $row = mysqli_num_rows($result);
 
-IF ($row >= 2){
+if ($row >= 2){
     $msg = "The Form Number:".$form_no."Already Exists. Please Check For Duplicate";
     $msgEncoded = base64_encode($msg);
 header("location:newapp.php?msg=$msgEncoded");
 }
-ELSE {
+else {
 
     // Start Checking Passport Info and Insert Record
 if (isset($_POST['formsubmit'])) {
@@ -43,7 +44,8 @@ if (isset($_POST['formsubmit'])) {
 
   $tempname = $_FILES["fileToUpload"]["tmp_name"];  
 
-  $folder = "cvp/dashboard/application/img_passport/".$filename;   
+  //$folder = "cvp/dashboard/application/img_passport/".$filename;
+  $folder = "img_passport/".$filename;
 
    
         $sql = "INSERT INTO candidates (form_no, sname, fname, oname, gender, state, phone1, phone2, email, nationality, dob, progname, progyr, stream, submit_state, photolink, entryby, updatedby) 
@@ -53,13 +55,18 @@ $new_id = mysqli_insert_id($db);
 
 include ("batchingbot.php");
 
-if (move_uploaded_file($tmpname, $folder)) {
+if(is_uploaded_file($_FILES['fileToUpload'])){
+  //echo $_FILES["fileToUpload"]["tmp_name"];
+  //exit;
+}
+
+if (move_uploaded_file($tempname, $folder)) {
 
     $msg = "Form No: ".$form_no." and The file ".htmlspecialchars(basename($_FILES["fileToUpload"]["name"]))." has been uploaded.";
     $msgEncoded = base64_encode($msg);
 header("location:newapp.php?msg=$msgEncoded newrecord=$new_id");
 
-}else{
+} else{
 
     $msg = "Record and Image Link Successfuly Captured. Record ID:".$new_id;
     $msgEncoded = base64_encode($msg);

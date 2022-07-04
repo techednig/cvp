@@ -1,10 +1,25 @@
+<?php
+include_once ("../../include/server.php");
+include_once ("../../include/sessioncheck.php");
+include_once ("../../include/p1checker.php");
+
+//Recover Info From Session
+$a_email = $_SESSION['a_email'];
+$a_email = base64_decode($a_email);
+
+$uid = base64_decode($_SESSION['uid']);
+$role = $_SESSION['role'];
+$a_fname  = $_SESSION['a_fname'];
+$a_lname = $_SESSION['a_lname'];
+
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - PHERMC DASHBOARD</title>
+    <title>Profile - PHERMC DASHBOARD</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
@@ -19,32 +34,7 @@
     <link rel="stylesheet" href="assets/css/Table-With-Search.css">
 </head>
 
-<body id="page-top"><?php
-require_once "config/conn.php";
-require_once "config/checkUser.php";
-
-if(isset($_GET['msg'])){
-	$msg = $_GET['msg'];
-}
-?>
-<?php
-$link = mysqli_connect("localhost", "root", "", "vacreg");
-
-if ($link === false){
-die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-?>
-<?php
-$sql = "SELECT * FROM admin WHERE admin_id='".$_SESSION['admin_id']."'";
-$result = mysql_query($sql);
-$fetch = mysql_fetch_assoc($result);
-
-$fullname= $fetch['fullname'];
-$department = $fetch['department'];
-$phone= $fetch['phone'];
-$admin_id2= $fetch['admin_id'];
-$admin_id22=md5($admin_id2);
-?>
+<body id="page-top">
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: rgb(2,81,52);">
             <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
@@ -140,8 +130,8 @@ $admin_id22=md5($admin_id2);
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Enter AppID to Search...">
-                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
+                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" name="searchparam" placeholder="Enter AppID to Search...">
+                                <div class="input-group-append"><button name="searchbtn" class="btn btn-primary py-0" type="button" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
                             </div>
                         </form>
                         <ul class="navbar-nav flex-nowrap ml-auto">
@@ -224,7 +214,7 @@ $admin_id22=md5($admin_id2);
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br>&lt;?Php Echo $Fullname; ?&gt;<br><br></span><img class="border rounded-circle img-profile" src="assets/img/avatars/jpeg1.jpg"></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br><?Php Echo $a_fname, " ", $a_lname; ?><img class="border rounded-circle img-profile" src="assets/img/avatars/jpeg1.jpg"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="../config/logout.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
@@ -233,231 +223,145 @@ $admin_id22=md5($admin_id2);
                         </ul>
                     </div>
                 </nav>
-                <p class="text-capitalize" style="color: var(--blue);font-family: Oswald, sans-serif;text-align: center;">LOGGED IN AS: <span style="color: var(--green);">&lt;?php echo $fullname; ?&gt;&nbsp;</span></p>
                 <div class="container-fluid">
-                    <div class="col text-center">
-                        <h3 class="text-capitalize">Edit Existing application</h3>
-                    </div>
-                    <div class="col">
-                        <div style="background: var(--secondary);height: 10px;border-radius: 11px;"></div>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-md-10 offset-md-1">
-                                <div style="height: 14px;"></div>
-                                <div class="card m-auto" style="max-width:850px">
-                                    <div class="card-body">
-                                        <form class="d-flex align-items-center"><i class="fas fa-search d-none d-sm-block h4 text-body m-0"></i><input class="form-control form-control-lg flex-shrink-1 form-control-borderless" type="search" placeholder="Search AppID, Name or Form no" name="searchbar"><button class="btn btn-success btn-lg" type="submit">Search</button></form>
-                                    </div>
+                    <h3 class="text-dark mb-4">Batch/ Re-batch Candidate</h3>
+
+                    <?php 
+                           if (isset($_GET['searchbtn'] OR ['rebatchbtn'])) {
+    $search = $_GET['searchparam'];
+    $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.form_no LIKE '%{$search}%' OR candidates.appid LIKE '%{$search}%' LIMIT 1";
+  $result = mysqli_query($db, $sql);
+  $row = mysqli_fetch_assoc($result);
+       if (mysqli_num_rows($result) = 1){
+           echo "
+                    <div class='row mb-3'>
+                        <div class='col-lg-4'>
+                            <div class='card mb-3'>
+                                <div class='card-body text-center shadow'><img class='rounded-circle mb-3 mt-4' src=application/".$row['photolink']." width='160' height='160'>
+                                    <div class='mb-3'><button class='btn btn-primary btn-sm' type='button'>Change Photo</button></div>
+                                </div>
+                            </div>
+                            <div class='card shadow mb-4'>
+                                <div class='card-header py-3'>
+                                    <h6 class='text-primary font-weight-bold m-0'>Candidate Name:</h6>
+                                    <h5 class='text-capitalize'>".$row['sname']." ".$row['fname']." ".$row['oname']."</h5>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div style="height: 14px;"></div>
-                    <div class="col">
-                        <div class="card shadow mb-3">
-                            <div class="card-header py-3">
-                                <p class="text-primary m-0 font-weight-bold">Program Info</p>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="form-row">
-                                        <div class="col-md-5">
-                                            <div class="form-group"><label for="email" style="color: var(--red);"><strong>Program Name</strong></label><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="nationality" value="nationality">
-                                                    <option value="BM" selected="">Basic Midwifery</option>
-                                                    <option value="PBN">Post-Basic Nursing</option>
-                                                    <option value="BN">Basic Nursing</option>
-                                                </select></div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group"><label for="email" style="color: var(--red);"><strong>Year</strong></label><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="nationality" value="nationality">
-                                                    <option value="2022" selected="">2022</option>
-                                                    <option value="2023">2023</option>
-                                                    <option value="2024">2024</option>
-                                                    <option value="2025">2025</option>
-                                                    <option value="2026">2026</option>
-                                                    <option value="2027">2027</option>
-                                                    <option value="2028">2028</option>
-                                                    <option value="2029">2029</option>
-                                                    <option value="2030">2030</option>
-                                                </select></div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group"><label for="email" style="color: var(--red);"><strong>Stream</strong></label><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="nationality" value="nationality">
-                                                    <option value="A" selected="">A</option>
-                                                    <option value="B">B</option>
-                                                </select></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col"></div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="card-header py-3">
-                                <p class="text-primary m-0 font-weight-bold">Candidate Bio</p>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <div class="form-group"><label for="username"><strong>Surname*</strong><br></label><input class="form-control" type="text" name="username" autocomplete="off" required=""></div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group"><label for="email"><strong>First Name*</strong></label><input class="form-control" type="email" name="email" autocomplete="off" required=""></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <div class="form-group"><label for="first_name"><strong>Other Name</strong></label><input class="form-control" type="text" name="first_name" autocomplete="off"></div>
-                                            <div class="form-group"><label for="first_name"><strong>Other Name</strong></label><input class="form-control" type="text" name="first_name"></div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group"><label for="last_name"><strong>Date of Birth*</strong></label><input class="form-control" type="date" required=""></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group"></div>
-                                </form>
+                        <div class='col-md-6 col-lg-4'>
+                            <div class='card shadow mb-4'>
+                                <div class='card-header py-3'>
+                                    <h6 class='text-primary font-weight-bold m-0'>Application Number:</h6>
+                                    <h5 class='text-capitalize'>".$row['appid']."</h5>
+                                </div>
                             </div>
                         </div>
-                        <div class="card shadow">
-                            <div class="card-header py-3">
-                                <p class="text-primary m-0 font-weight-bold">Contact Information</p>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="form-group"><label for="address"><strong>Email Address*</strong><br></label><input class="form-control" type="text" name="address" inputmode="email" autocomplete="off" required=""></div>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <div class="form-group"><label for="city"><strong>Phone #</strong></label><input class="form-control" type="text" name="phone1" inputmode="tel" maxlength="11" minlength="11" required=""></div>
-                                            <div class="form-group"><label for="city"><strong>State</strong></label><input class="form-control" type="text" name="phone1" inputmode="tel" maxlength="11" minlength="11" required=""></div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group"><label for="country"><strong>Alternate Phone #</strong></label><input class="form-control" type="text" name="phone2" inputmode="tel" maxlength="17"></div>
-                                            <div class="form-group"><label for="country"><strong>Nationality</strong></label><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="nationality" value="nationality">
-                                                    <option value="Nigerian" selected="">Nigerian</option>
-                                                    <option value="Non Nigerian">Non Nigerian</option>
-                                                </select></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col">
-                                            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" required="" name="verification" value="1"><label class="form-check-label text-capitalize" for="formCheck-1" style="font-size: 12px;font-family: Nunito, sans-serif;">I have checked and confirmed that the selected program for this candidate is correct.</label></div>
-                                        </div>
-                                    </div><div class="bootstrap_img_upload">
-<div class="container py-5">
-
-    <header class="text-white text-center">
-        <h1 class="display-4">Passport Upload</h1>
-        <img src="https://res.cloudinary.com/mhmd/image/upload/v1564991372/image_pxlho1.svg" alt="" width="150" class="mb-4">
-    </header>
-
-
-    <div class="row py-4">
-        <div class="col-lg-6 mx-auto">
-
-            <!-- Upload image input-->
-            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
-                <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                <div class="input-group-append">
-                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                </div>
-            </div>
-
-            <!-- Uploaded image area-->
-            <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
-            <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-
-        </div>
-    </div>
-</div>
-</div>
-                                    <div class="form-group" id="formg3">
-                                        <div style="width: 425.6px;height: 17px;margin: 0px;padding: 14px;"></div>
-                                    </div>
-                                    <div class="form-group" id="formg-1"><button class="btn btn-primary btn-sm" type="reset" style="background: var(--red);">Reset</button><button class="btn btn-primary btn-sm" type="submit" style="margin: 4px;">Save Record</button></div>
-                                </form>
+                        <div class='col-md-6 col-lg-4'>
+                            <div class='card shadow mb-4'>
+                                <div class="card-header py-3">
+                                    <h6 class="text-primary font-weight-bold m-0">Form Number:</h6>
+                                    <h5 class="text-capitalize">".$row['form_no']."</h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card shadow mb-5"></div>
-                    <div class="row"></div>
-                    <div class="row">
-                        <div class="col-lg-7 col-xl-8">
+                        <div class="col-md-6 col-lg-4">
                             <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary font-weight-bold m-0">Vaccination Overview</h6>
-                                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                        <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in">
-                                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart-area"><canvas data-bss-chart="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;2019&quot;,&quot;2020&quot;,&quot;2021&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Earnings&quot;,&quot;fill&quot;:true,&quot;data&quot;:[&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;padding&quot;:20}}]}}}"></canvas></div>
+                                <div class="card-header py-3">
+                                    <h6 class="text-primary font-weight-bold m-0">Program:</h6>
+                                    <h5 class="text-capitalize">".$row['progname']."</h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5 col-xl-4">
+                        <div class="col-md-6 col-lg-4">
                             <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="text-primary font-weight-bold m-0">Vaccination Actions</h6>
-                                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                        <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in">
-                                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart-area"><canvas data-bss-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Unvaccinated&quot;,&quot;Vaccinated&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Documentation&quot;,&quot;backgroundColor&quot;:[&quot;#e82020&quot;,&quot;#1cc88a&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;99&quot;,&quot;1&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:true,&quot;position&quot;:&quot;bottom&quot;,&quot;reverse&quot;:true,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}}"></canvas></div>
+                                <div class="card-header py-3">
+                                    <h6 class="text-primary font-weight-bold m-0">State:</h6>
+                                    <h5 class="text-capitalize">Edo</h5>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
+                        <div class="col-lg-8">
+                            <div class="row mb-3 d-none">
+                                <div class="col">
+                                    <div class="card text-white bg-primary shadow">
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <p class="m-0">Peformance</p>
+                                                    <p class="m-0"><strong>65.2%</strong></p>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                            </div>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card text-white bg-success shadow">
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <p class="m-0">Peformance</p>
+                                                    <p class="m-0"><strong>65.2%</strong></p>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                            </div>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card text-white bg-primary shadow"></div><a class="btn btn-primary" role="button" href="rebatch.html">Make New Payment</a>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card text-white bg-success shadow"></div>
-                                    <div class="form-group"><a class="btn btn-primary" role="button" href="#">Upload File</a><input type="file"></div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card text-white bg-info shadow">
+                                <div class="col">
+                                    <div class="card shadow mb-3">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 font-weight-bold">Batch Information</p>
+                                        </div>
                                         <div class="card-body">
-                                            <p class="m-0">Info</p>
-                                            <p class="text-white-50 small m-0">#36b9cc</p>
+                                            <form>
+                                                <div class="form-row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group"><label for="purpose"><strong>Batch Number</strong></label><span>(e.g 3D)</span><input class="form-control" type="text" name="purpose" required=""></div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group" style="margin: 8px;"><label for="purpose"><strong>Exam Date</strong></label><label for="amount" style="margin: -1px;"><input class="form-control" type="date" name="edate" style="margin: -6px;"><br></label></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="comment"><strong>Exam Time</strong></label><span>e.g 7AM</span><input class="form-control" type="text" name="etime"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="comment"><strong>Hall</strong></label><span>(e.g A, B)</span><input class="form-control" type="text" name="hall"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="eid"><strong>Batch ID</strong><br></label><input class="form-control" type="text" name="batchid" readonly="" style="width: 100px;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Update Batch Now</button></div>
+                                            </form>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card text-white bg-warning shadow">
-                                        <div class="card-body">
-                                            <p class="m-0">Warning</p>
-                                            <p class="text-white-50 small m-0">#f6c23e</p>
+                                    <div class="card shadow">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 font-weight-bold">Contact Settings</p>
                                         </div>
+                                        <div class="card-body"></div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card text-white bg-danger shadow">
-                                        <div class="card-body">
-                                            <p class="m-0">Danger</p>
-                                            <p class="text-white-50 small m-0">#e74a3b</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card text-white bg-secondary shadow">
-                                        <div class="card-body">
-                                            <p class="m-0">Secondary</p>
-                                            <p class="text-white-50 small m-0">#858796</p>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow mb-5">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold">Settings</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form>
+                                        <div class="form-group"></div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -473,7 +377,6 @@ $admin_id22=md5($admin_id2);
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/chart.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/Bootstrap-Image-Uploader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
