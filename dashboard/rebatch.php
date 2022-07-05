@@ -227,14 +227,15 @@ $a_lname = $_SESSION['a_lname'];
                     <h3 class="text-dark mb-4">Batch/ Re-batch Candidate</h3>
 
                     <?php 
-                           if (isset($_GET['searchbtn'] OR ['rebatchbtn'])) {
+                           if (isset($_GET['rebatchbtn'])) {
     $search = $_GET['searchparam'];
     $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.form_no LIKE '%{$search}%' OR candidates.appid LIKE '%{$search}%' LIMIT 1";
-  $result = mysqli_query($db, $sql);
-  $row = mysqli_fetch_assoc($result);
-       if (mysqli_num_rows($result) = 1){
+    $result = mysqli_query($db, $sql);
+         if (mysqli_num_rows($result) = 1)
+       {
+        $row = mysqli_fetch_assoc($result);
            echo "
-                    <div class='row mb-3'>
+                 <div class='row mb-3'>
                         <div class='col-lg-4'>
                             <div class='card mb-3'>
                                 <div class='card-body text-center shadow'><img class='rounded-circle mb-3 mt-4' src=application/".$row['photolink']." width='160' height='160'>
@@ -258,90 +259,90 @@ $a_lname = $_SESSION['a_lname'];
                         </div>
                         <div class='col-md-6 col-lg-4'>
                             <div class='card shadow mb-4'>
-                                <div class="card-header py-3">
-                                    <h6 class="text-primary font-weight-bold m-0">Form Number:</h6>
-                                    <h5 class="text-capitalize">".$row['form_no']."</h5>
+                                <div class='card-header py-3'>
+                                    <h6 class='text-primary font-weight-bold m-0'>Form Number:</h6>
+                                    <h5 class='text-capitalize'>".$row['form_no']."</h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="text-primary font-weight-bold m-0">Program:</h6>
-                                    <h5 class="text-capitalize">".$row['progname']."</h5>
+                        <div class='col-md-6 col-lg-4'>
+                            <div class='card shadow mb-4'>
+                                <div class='card-header py-3'>
+                                    <h6 class='text-primary font-weight-bold m-0'>Program:</h6>
+                                    <h5 class='text-capitalize'>".$row['progname']."</h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="text-primary font-weight-bold m-0">State:</h6>
-                                    <h5 class="text-capitalize">Edo</h5>
+                        <div class='col-md-6 col-lg-4'>
+                            <div class='card shadow mb-4'>
+                                <div class='card-header py-3'>
+                                    <h6 class='text-primary font-weight-bold m-0'>State:</h6>
+                                    <h5 class='text-capitalize'>".$row['state']."</h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8">
-                            <div class="row mb-3 d-none">
-                                <div class="col">
-                                    <div class="card text-white bg-primary shadow">
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col">
-                                                    <p class="m-0">Peformance</p>
-                                                    <p class="m-0"><strong>65.2%</strong></p>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                        <div class='col-lg-8>'
+                            <div class='row mb-3 d-none'>
+                                <div class='col'>
+                                    <div class='card text-white bg-primary shadow'>
+                                        <div class='card-body'>
+                                            <div class='row mb-2'>
+                                                
+                                                <div class='col-auto'><i class='fas fa-rocket fa-2x'></i></div>
                                             </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                            <p class='text-white-50 small m-0'><i class='fas fa-arrow-up'></i>&nbsp;5% since last month</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="card text-white bg-success shadow">
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col">
-                                                    <p class="m-0">Peformance</p>
-                                                    <p class="m-0"><strong>65.2%</strong></p>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                            </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                        </div>
+                                <div class='col'>
+                                    <div class='card text-white bg-success shadow'>
+                                        
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card shadow mb-3">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 font-weight-bold">Batch Information</p>
+                            <div class='row'>
+                                <div class='col'>
+                                    <div class='card shadow mb-3'>
+                                        <div class='card-header py-3'>
+                                            <p class='text-primary m-0 font-weight-bold'>Batch Information</p>
                                         </div>
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group"><label for="purpose"><strong>Batch Number</strong></label><span>(e.g 3D)</span><input class="form-control" type="text" name="purpose" required=""></div>
+                                        <div class='card-body'>
+                                            <form action='process_rebatch.php' method='POST' enctype='multipart/form-data'>
+                                                <div class='form-row'>
+                                                    <div class='col-md-4'>
+                                                        <div class='form-group'><label for='currbcode'><strong>Current Batch Number</strong></label><span>(e.g 3D)</span><input class='form-control' type='text' name='currbcode' value=".$row['bcode']." readonly=''></div>
                                                     </div>
-                                                    <div class="col-md-5">
-                                                        <div class="form-group" style="margin: 8px;"><label for="purpose"><strong>Exam Date</strong></label><label for="amount" style="margin: -1px;"><input class="form-control" type="date" name="edate" style="margin: -6px;"><br></label></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="comment"><strong>Exam Time</strong></label><span>e.g 7AM</span><input class="form-control" type="text" name="etime"></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="comment"><strong>Hall</strong></label><span>(e.g A, B)</span><input class="form-control" type="text" name="hall"></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="eid"><strong>Batch ID</strong><br></label><input class="form-control" type="text" name="batchid" readonly="" style="width: 100px;"></div>
+                                                    <div class='col-md-5'>
+                                                        <div class='form-group' style='margin: 8px;'><label for='purpose'><strong>Exam Date</strong></label><label for='amount' style='margin: -1px;'><input class='form-control' type='date' name='curredate' value=".$row['edate']." readonly='' style='margin: -6px;'><br></label></div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Update Batch Now</button></div>
+                                                <div class='form-row'>
+                                                    <div class='col'>
+                                                        <div class='form-group'><label for='comment'><strong>Enter New Batch</strong></label><span>e.g 4A, 1C</span><input class='form-control' type='text' name='newbcode' maxlenght='2' required=''></div>
+                                                    </div>
+                                                    <div class='col'>
+                                                        <div class='form-group'><label for='comment'><strong>Hall</strong></label><span>(e.g A, B)</span><input class='form-control' type='text' name='hall' maxlenght='2' required=''></div>
+                                                    </div>
+                                                    <div class='col'>
+                                                        <div class='form-group'><label for='eid'><strong>Batch ID</strong><br></label><input class='form-control' type='text' name='batchid' value=".$row['batchid']." readonly='' style='width: 100px;'></div>
+                                                    </div>
+                                                </div>
+                                                <div class='form-group'><button class='btn btn-primary btn-sm' type='submit' name='rebatchbtn'>Change Batch</button></div>
                                             </form>
                                         </div>
-                                    </div>
+                                    </div>";
+                                     
+       }else{
+                                echo "Sorry! No Result Found.";
+                                }}else{
+                                echo "ERROR: Could not able to execute $sql. " .mysqli_error($db);
+                                
+                                // Close connection
+                            
+                                mysqli_close($db);
+                            }       
+                        
+                ?>
                                     <div class="card shadow">
                                         <div class="card-header py-3">
                                             <p class="text-primary m-0 font-weight-bold">Contact Settings</p>
