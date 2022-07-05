@@ -231,7 +231,7 @@ $a_lname = $_SESSION['a_lname'];
     $search = $_GET['searchparam'];
     $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.form_no LIKE '%{$search}%' OR candidates.appid LIKE '%{$search}%' LIMIT 1";
     $result = mysqli_query($db, $sql);
-         if (mysqli_num_rows($result) = 1)
+         if (mysqli_num_rows($result) == 1)
        {
         $row = mysqli_fetch_assoc($result);
            echo "
