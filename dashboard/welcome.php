@@ -89,7 +89,7 @@ mysqli_close($db);
                                     <div class="collapse" id="collapse-1">
                                         <div class="bg-white border rounded py-2 collapse-inner">
                                             <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="../dashboard/application/newapp.php">New Application</a><a class="collapse-item" href="../dashboard/search.php">Search/Edit Application</a><a class="collapse-item" href="../../printphotocard.php">Print Photocard</a><a class="collapse-item" href="../application/activation.php">Activate Remita</a>
-                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="#">Batch Summary</a><a class="collapse-item" href="../../application/rebatch.php"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="../../application/rebatch.php"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="#">Batch Summary</a><a class="collapse-item" href="rebatch.php"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="rebatch.php"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
                                         </div>
                                     </div>
                                 </div>

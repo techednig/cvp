@@ -22,7 +22,7 @@ $a_lname = $_SESSION['a_lname'];
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - PHERMC DASHBOARD</title>
+    <title>New Application - CVP+</title>
     <meta property="og:image" content="../assets/img/FCTA%20NO%20BG.gif">
     <meta name="description" content="Capturing, Verification and Interviewing administration platform for FCT School of Nursing and Midwifery.">
     <meta name="" content="">

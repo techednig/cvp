@@ -19,7 +19,7 @@ $a_lname = $_SESSION['a_lname'];
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Profile - PHERMC DASHBOARD</title>
+    <title>Rebatch Candidate - CVP+</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
@@ -54,7 +54,7 @@ $a_lname = $_SESSION['a_lname'];
                     <div class="container-fluid d-flex flex-column p-0">
                         <hr class="sidebar-divider my-0">
                         <ul class="navbar-nav text-light" id="accordionSidebar-1">
-                            <li class="nav-item"><a class="nav-link text-muted" href="welcome.html"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="welcome.php"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
                             <hr class="sidebar-divider">
                             <div class="sidebar-heading">
                                 <p class="mb-0">INTERFACE</p>
@@ -63,8 +63,8 @@ $a_lname = $_SESSION['a_lname'];
                                 <div><a class="btn btn-link text-light nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button"><i class="fas fa-users-cog"></i>&nbsp;<span>Application</span></a>
                                     <div class="collapse" id="collapse-1">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="newapp.html">New Application</a><a class="collapse-item" href="editapp.html">Search/Edit Application</a><a class="collapse-item" href="printphotocard.html">Print Photocard</a>
-                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="cards.html">Batch Summary</a><a class="collapse-item" href="rebatch.html"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="rebatch.html"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="newapp.php">New Application</a><a class="collapse-item" href="editapp.php">Search/Edit Application</a><a class="collapse-item" href="printphotocard.php">Print Photocard</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="cards.html">Batch Summary</a><a class="collapse-item" href="rebatch.php"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="rebatch.php"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
                                         </div>
                                     </div>
                                 </div>
@@ -93,16 +93,16 @@ $a_lname = $_SESSION['a_lname'];
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button"><i class="fas fa-wrench"></i>&nbsp;<span>Configuration</span></a>
                                     <div class="collapse" id="collapse-3">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--red);">BATCHING CONFIG:</h6><a class="collapse-item" href="hallbatchconfig.html">Date/ Batch Config</a><a class="collapse-item" href="hallbatchconfig.html">Hall Capacity Config</a>
-                                            <h6 class="collapse-header" style="color: var(--red);">USER CONFIG:</h6><a class="collapse-item" href="404.html">Add New User</a><a class="collapse-item" href="blank.html">Privilege Config</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">BATCHING CONFIG:</h6><a class="collapse-item" href="hallbatchconfig.php">Date/ Batch Config</a><a class="collapse-item" href="hallbatchconfig.php">Hall Capacity Config</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">USER CONFIG:</h6><a class="collapse-item" href="#">Add New User</a><a class="collapse-item" href="#">Privilege Config</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-5" href="#collapse-5" role="button"><i class="fas fa-envelope"></i>&nbsp;<span>Message Center</span></a>
                                     <div class="collapse" id="collapse-5">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--red);">messaging center:</h6><a class="collapse-item" href="login.html">Compose Message</a><a class="collapse-item" href="forgot-password.html">View Messages</a>
-                                            <h6 class="collapse-header" style="color: var(--red);">CONFIG:</h6><a class="collapse-item" href="404.html">Message Center Config</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">messaging center:</h6><a class="collapse-item" href="#">Compose Message</a><a class="collapse-item" href="#">View Messages</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">CONFIG:</h6><a class="collapse-item" href="#">Message Center Config</a>
                                         </div>
                                     </div>
                                 </div>
@@ -332,10 +332,11 @@ $a_lname = $_SESSION['a_lname'];
                                         </div>
                                     </div>";
                                      
-       }else{
+       }else{mysqli_free_result($result);
+       }
                                 echo "Sorry! No Result Found.";
-                                }}else{
-                                echo "ERROR: Could not able to execute $sql. " .mysqli_error($db);
+                                }else{
+                                echo "ERROR: Could not Execute $sql. Search for Candidate First " .mysqli_error($db);
                                 
                                 // Close connection
                             
