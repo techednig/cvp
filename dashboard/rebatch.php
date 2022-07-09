@@ -228,8 +228,8 @@ $a_lname = $_SESSION['a_lname'];
 
                     <?php 
                            if (isset($_GET['rebatchbtn'])) {
-    $search = $_GET['searchparam'];
-    $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.form_no LIKE '%{$search}%' OR candidates.appid LIKE '%{$search}%' LIMIT 1";
+    $search = $_GET['app_id'];
+    $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.form_no == '$search' OR candidates.appid == '$search' LIMIT 1";
     $result = mysqli_query($db, $sql);
          if (mysqli_num_rows($result) == 1)
        {
@@ -331,8 +331,7 @@ $a_lname = $_SESSION['a_lname'];
                                             </form>
                                         </div>
                                     </div>";
-                                     
-       }else{mysqli_free_result($result);
+  
        }
                                 echo "Sorry! No Result Found.";
                                 }else{
