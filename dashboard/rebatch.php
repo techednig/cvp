@@ -1,7 +1,7 @@
 <?php
-include_once ("../../include/server.php");
-include_once ("../../include/sessioncheck.php");
-include_once ("../../include/p1checker.php");
+include ("../include/server.php");
+include ("../include/sessioncheck.php");
+include ("../include/p1checker.php");
 
 //Recover Info From Session
 $a_email = $_SESSION['a_email'];
@@ -129,9 +129,9 @@ $a_lname = $_SESSION['a_lname'];
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <form method="GET" action="search.php" class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group"><input class="bg-light form-control border-0 small" type="text" name="searchparam" placeholder="Enter AppID to Search...">
-                                <div class="input-group-append"><button name="searchbtn" class="btn btn-primary py-0" type="button" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
+                                <div class="input-group-append"><button name="searchbtn" class="btn btn-primary py-0" type="submit" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
                             </div>
                         </form>
                         <ul class="navbar-nav flex-nowrap ml-auto">
@@ -227,9 +227,9 @@ $a_lname = $_SESSION['a_lname'];
                     <h3 class="text-dark mb-4">Batch/ Re-batch Candidate</h3>
 
                     <?php 
-                           if (isset($_GET['rebatchbtn'])) {
+                           if (isset($_GET['app_id'])) {
     $search = $_GET['app_id'];
-    $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.form_no == '$search' OR candidates.appid == '$search' LIMIT 1";
+    $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.form_no LIKE '$search' OR candidates.appid LIKE '$search' LIMIT 1";
     $result = mysqli_query($db, $sql);
          if (mysqli_num_rows($result) == 1)
        {
@@ -281,25 +281,7 @@ $a_lname = $_SESSION['a_lname'];
                                 </div>
                             </div>
                         </div>
-                        <div class='col-lg-8>'
-                            <div class='row mb-3 d-none'>
-                                <div class='col'>
-                                    <div class='card text-white bg-primary shadow'>
-                                        <div class='card-body'>
-                                            <div class='row mb-2'>
-                                                
-                                                <div class='col-auto'><i class='fas fa-rocket fa-2x'></i></div>
-                                            </div>
-                                            <p class='text-white-50 small m-0'><i class='fas fa-arrow-up'></i>&nbsp;5% since last month</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='col'>
-                                    <div class='card text-white bg-success shadow'>
-                                        
-                                    </div>
-                                </div>
-                            </div>
+                       
                             <div class='row'>
                                 <div class='col'>
                                     <div class='card shadow mb-3'>
@@ -310,15 +292,15 @@ $a_lname = $_SESSION['a_lname'];
                                             <form action='process_rebatch.php' method='POST' enctype='multipart/form-data'>
                                                 <div class='form-row'>
                                                     <div class='col-md-4'>
-                                                        <div class='form-group'><label for='currbcode'><strong>Current Batch Number</strong></label><span>(e.g 3D)</span><input class='form-control' type='text' name='currbcode' value=".$row['bcode']." readonly=''></div>
+                                                        <div class='form-group'><label for='currbcode'><strong>Current Batch Number</strong></label><input class='form-control' type='text' name='currbcode' value=".$row['bcode']." readonly=''></div>
                                                     </div>
                                                     <div class='col-md-5'>
-                                                        <div class='form-group' style='margin: 8px;'><label for='purpose'><strong>Exam Date</strong></label><label for='amount' style='margin: -1px;'><input class='form-control' type='date' name='curredate' value=".$row['edate']." readonly='' style='margin: -6px;'><br></label></div>
+                                                        <div class='form-group' style='margin: 8px;'><label for='purpose'><strong>Exam Date</strong></label><label for='amount' style='margin: -1px;'><input class='form-control' type='date' name='curredate' style='margin: -6px;' readonly='' value=".$row['edate']."><br></label></div>
                                                     </div>
                                                 </div>
                                                 <div class='form-row'>
                                                     <div class='col'>
-                                                        <div class='form-group'><label for='comment'><strong>Enter New Batch</strong></label><span>e.g 4A, 1C</span><input class='form-control' type='text' name='newbcode' maxlenght='2' required=''></div>
+                                                        <div class='form-group'><label for='comment'><strong>Enter New Batch</strong></label><span>e.g 4A</span><input class='form-control' type='text' name='newbcode' maxlenght='2' required=''></div>
                                                     </div>
                                                     <div class='col'>
                                                         <div class='form-group'><label for='comment'><strong>Hall</strong></label><span>(e.g A, B)</span><input class='form-control' type='text' name='hall' maxlenght='2' required=''></div>
@@ -332,17 +314,17 @@ $a_lname = $_SESSION['a_lname'];
                                         </div>
                                     </div>";
   
-       }
-                                echo "Sorry! No Result Found.";
-                                }else{
+                                             }
+                                //echo "Sorry! No Result Found.";
+                                     }else{
                                 echo "ERROR: Could not Execute $sql. Search for Candidate First " .mysqli_error($db);
                                 
                                 // Close connection
                             
-                                mysqli_close($db);
-                            }       
+                                //mysqli_close($db);
+                                        }       
                         
-                ?>
+                                    ?>
                                     <div class="card shadow">
                                         <div class="card-header py-3">
                                             <p class="text-primary m-0 font-weight-bold">Contact Settings</p>

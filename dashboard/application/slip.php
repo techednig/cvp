@@ -19,7 +19,7 @@ $a_lname = $_SESSION['a_lname'];
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Photocard</title>
+    <title>Print Photocard</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
@@ -68,7 +68,7 @@ $a_lname = $_SESSION['a_lname'];
                             <td><label class='form-label'>Program Year:</label>
                                 <h4 class='display-1 fs-4 fw-light'>".$row['progyr']." - ".$row['stream']."</h4>
                             </td>
-                            <td><img class='rounded-circle placeholder border' width='120' height='120' alt='Passport Image' src=".$row['photolink']."></td>
+                            <td><img class='rounded-circle placeholder border' width='120' height='120' alt='Passport' src=".$row['photolink']."></td>
                         </tr>
                         <tr>
                             <td><label class='form-label'>Candidate's Name:</label>

@@ -28,7 +28,7 @@
                             <div class="text-center">
                                 <h4 class="text-dark mb-4">Create an Account!</h4>
                             </div>
-                            <form class="user">
+                            <form class="user" action="processsignup.php" method="POST">
                                 <div class="row mb-3">
                                     <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="First Name" name="a_fname"></div>
                                     <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Surname" name="a_sname"></div>
@@ -41,8 +41,8 @@
                                 <hr><a class="btn btn-primary disabled d-block btn-google btn-user w-100 mb-2" role="button"><i class="fab fa-google"></i>&nbsp; Register with Google</a><a class="btn btn-primary disabled d-block btn-facebook btn-user w-100" role="button"><i class="fab fa-facebook-f"></i>&nbsp; Register with Facebook</a>
                                 <hr>
                             </form>
-                            <div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
-                            <div class="text-center"><a class="small" href="index.html">Already have an account? Login!</a></div>
+                            <div class="text-center"><a class="small" href="forgot-password.php">Forgot Password?</a></div>
+                            <div class="text-center"><a class="small" href="index.php">Already have an account? Login!</a></div>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 <?php
-include_once ("../include/server.php");
-include_once ("../include/sessioncheck.php");
-include_once ("../include/p1checker.php");
+include ("../include/server.php");
+include ("../include/sessioncheck.php");
+include ("../include/p1checker.php");
 
 //Recover Info From Session
 $a_email = $_SESSION['a_email'];
@@ -25,7 +25,7 @@ $_SESSION['a_lname'] = $a_lname;
 $_SESSION['role'] = $role;
 
 
-mysqli_close($db);
+//mysqli_close($db);
 
 ?>
 <!DOCTYPE html>
@@ -287,7 +287,22 @@ mysqli_close($db);
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="chart-area"><canvas data-bss-chart="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Midwifery&quot;,&quot;Nursing&quot;,&quot;Post Basic&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Total Capture&quot;,&quot;fill&quot;:true,&quot;data&quot;:[&quot;1500&quot;,&quot;4500&quot;,&quot;200&quot;],&quot;borderColor&quot;:&quot;#e42626&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:true,&quot;position&quot;:&quot;bottom&quot;,&quot;reverse&quot;:true,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}}"></canvas></div>
+                                    <div class="chart-area"><canvas data-bss-chart="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Midwifery&quot;,&quot;Nursing&quot;,&quot;Post Basic&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Total Capture&quot;,&quot;fill&quot;:true,&quot;data&quot;:[&quot;<?php
+$sql = "SELECT * FROM `candidates` WHERE `progname` LIKE 'BM' ";
+$result = mysqli_query($db,$sql);
+$countBM = mysqli_num_rows($result);
+echo "$countBM";
+?>&quot;,&quot;<?php
+$sql = "SELECT * FROM `candidates` WHERE `progname` LIKE 'BN' ";
+$result = mysqli_query($db,$sql);
+$countBM = mysqli_num_rows($result);
+echo "$countBM";
+?>&quot;,&quot;<?php
+$sql = "SELECT * FROM `candidates` WHERE `progname` LIKE 'PBN' ";
+$result = mysqli_query($db,$sql);
+$countBM = mysqli_num_rows($result);
+echo "$countBM";
+?>&quot;],&quot;borderColor&quot;:&quot;#e42626&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:true,&quot;position&quot;:&quot;bottom&quot;,&quot;reverse&quot;:true,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}}"></canvas></div>
                                 </div>
                             </div>
                         </div>
@@ -320,32 +335,55 @@ mysqli_close($db);
                                 <div class="col-lg-6 mb-4">
                                     <div class="card text-white bg-info shadow">
                                         <div class="card-body">
-                                            <p class="m-0">Info</p>
-                                            <p class="text-white-50 small m-0">#36b9cc</p>
+                                            <p class="m-0">Grand Total Entries</p>
+                                            <p class="text-white-50 small m-0"><?php
+$sql = "SELECT * FROM `candidates` ";
+$result = mysqli_query($db,$sql);
+$countBM = mysqli_num_rows($result);
+echo "$countBM";
+?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mb-4">
                                     <div class="card text-white bg-warning shadow">
                                         <div class="card-body">
-                                            <p class="m-0">Warning</p>
-                                            <p class="text-white-50 small m-0">#f6c23e</p>
+                                            <p class="m-0">Total Entries Today</p>
+                                            <p class="text-white-50 small m-0"><?php
+$tdate = date("Y-m-d");
+$sql = "SELECT * FROM `candidates` WHERE `entrydate` LIKE '$tdate%'";
+$result = mysqli_query($db,$sql);
+$count_today = mysqli_num_rows($result);
+echo "$count_today";
+?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mb-4">
                                     <div class="card text-white bg-danger shadow">
                                         <div class="card-body">
-                                            <p class="m-0">Danger</p>
-                                            <p class="text-white-50 small m-0">#e74a3b</p>
+                                            <p class="m-0"><?php echo "$a_fname's "; ?>Total Entries</p>
+                                            <p class="text-white-50 small m-0"><?php
+//$tdate = date("Y-m-d");
+$sql = "SELECT * FROM `candidates` WHERE `entryby` = '$uid'";
+$result = mysqli_query($db,$sql);
+$count_today = mysqli_num_rows($result);
+echo "$count_today";
+?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mb-4">
                                     <div class="card text-white bg-secondary shadow">
                                         <div class="card-body">
-                                            <p class="m-0">Secondary</p>
-                                            <p class="text-white-50 small m-0">#858796</p>
+                                            <p class="m-0"><?php echo "$a_fname's "; ?>Total Entries Today</p>
+                                            <p class="text-white-50 small m-0"><?php
+//$tdate = date("Y-m-d");
+$sql = "SELECT * FROM `candidates` WHERE `entrydate` LIKE '$tdate%' AND `entryby` = '$uid'";
+$result = mysqli_query($db,$sql);
+$count_today = mysqli_num_rows($result);
+echo "$count_today";
+?></p>
                                         </div>
                                     </div>
                                 </div>
