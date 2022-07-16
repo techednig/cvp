@@ -1,3 +1,18 @@
+<?php
+include_once ("../../include/server.php");
+include_once ("../../include/sessioncheck.php");
+include_once ("../../include/p1checker.php");
+
+//Recover Info From Session
+$a_email = $_SESSION['a_email'];
+$a_email = base64_decode($a_email);
+
+$uid = base64_decode($_SESSION['uid']);
+$role = $_SESSION['role'];
+$a_fname  = $_SESSION['a_fname'];
+$a_lname = $_SESSION['a_lname'];
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -29,32 +44,7 @@
     <link rel="stylesheet" href="../assets/css/Table-With-Search.css">
 </head>
 
-<body id="page-top"><?php
-require_once "config/conn.php";
-require_once "config/checkUser.php";
-
-if(isset($_GET['msg'])){
-	$msg = $_GET['msg'];
-}
-?>
-<?php
-$link = mysqli_connect("localhost", "root", "", "vacreg");
-
-if ($link === false){
-die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-?>
-<?php
-$sql = "SELECT * FROM admin WHERE admin_id='".$_SESSION['admin_id']."'";
-$result = mysql_query($sql);
-$fetch = mysql_fetch_assoc($result);
-
-$fullname= $fetch['fullname'];
-$department = $fetch['department'];
-$phone= $fetch['phone'];
-$admin_id2= $fetch['admin_id'];
-$admin_id22=md5($admin_id2);
-?>
+<body id="page-top">
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: rgb(2,81,52);">
             <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
@@ -74,7 +64,7 @@ $admin_id22=md5($admin_id2);
                     <div class="container-fluid d-flex flex-column p-0">
                         <hr class="sidebar-divider my-0">
                         <ul class="navbar-nav text-light" id="accordionSidebar-1">
-                            <li class="nav-item"><a class="nav-link text-muted" href="../welcome.html"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="../welcome.php"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
                             <hr class="sidebar-divider">
                             <div class="sidebar-heading">
                                 <p class="mb-0">INTERFACE</p>
@@ -83,8 +73,8 @@ $admin_id22=md5($admin_id2);
                                 <div><a class="btn btn-link text-light nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button"><i class="fas fa-users-cog"></i>&nbsp;<span>Application</span></a>
                                     <div class="collapse" id="collapse-1">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="../application/newapp.html">New Application</a><a class="collapse-item" href="../application/search.html">Search/Edit Application</a><a class="collapse-item" href="../printphotocard.html">Print Photocard</a><a class="collapse-item" href="../application/activation.html">Activate Remita</a>
-                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="cards.html">Batch Summary</a><a class="collapse-item" href="../application/rebatch.html"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="../application/rebatch.html"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="../application/newapp.php">New Application</a><a class="collapse-item" href="../search.php">Search/Edit Application</a><a class="collapse-item" href="../search.php">Print Photocard</a><a class="collapse-item" href="../application/activation.php">Activate Remita</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="cards.html">Batch Summary</a><a class="collapse-item" href="../application/rebatch.php"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="../application/rebatch.php"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +83,7 @@ $admin_id22=md5($admin_id2);
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button"><i class="fas fa-binoculars"></i>&nbsp;<span>Verification</span></a>
                                     <div class="collapse" id="collapse-2">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../verification/versummary.html">Verification Summary</a><a class="collapse-item" href="utilities-border.html">Verify Candidate</a><a class="collapse-item" href="../verification/print_attend.html">Print Attendance</a><a class="collapse-item" href="utilities-other.html">Other</a>
+                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../verification/versummary.html">Verification Summary</a><a class="collapse-item" href="utilities-border.html">Verify Candidate</a><a class="collapse-item" href="#">Print Attendance</a><a class="collapse-item" href="utilities-other.html">Other</a>
                                         </div>
                                     </div>
                                 </div>
@@ -234,7 +224,7 @@ $admin_id22=md5($admin_id2);
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br>&lt;?Php Echo $Fullname; ?&gt;<br><br></span><img class="border rounded-circle img-profile" src="../assets/img/avatars/jpeg1.jpg"></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br><?Php Echo $a_fname, " ", $a_lname; ?><br><br></span><img class="border rounded-circle img-profile" src="../assets/img/avatars/jpeg1.jpg"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="profile.html"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="../config/logout.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
@@ -243,10 +233,24 @@ $admin_id22=md5($admin_id2);
                         </ul>
                     </div>
                 </nav>
-                <p class="text-capitalize" style="color: var(--blue);font-family: Oswald, sans-serif;text-align: center;">LOGGED IN AS: <span style="color: var(--green);">&lt;?php echo $fullname; ?&gt;&nbsp;</span></p>
+                <p class="text-capitalize" style="color: var(--blue);font-family: Oswald, sans-serif;text-align: center;">LOGGED IN AS: <span style="color: var(--green);"><?Php Echo $role; ?></span></p>
                 <div class="container-fluid">
                     <div class="col text-center">
                         <h3 class="text-capitalize">Edit Existing application</h3>
+                        <small class="form-text text-danger" style="font-size: 14px;">&nbsp;</div><?php
+    
+            
+                                        if(isset($_GET['msg'])){
+                                        $msg = base64_decode($_GET['msg']);
+                            
+                                            if($msg!=""){
+                                                echo "<i class='fas fa-exclamation-triangle' style='color: var(--bs-red)'></i>"; echo $msg;
+                                                //echo $_GET['msg'];
+                                            }
+                                            
+                                            }
+                                        
+                            ?></small> 
                     </div>
                     <div class="col">
                         <div style="background: var(--secondary);height: 10px;border-radius: 11px;"></div>
@@ -258,7 +262,7 @@ $admin_id22=md5($admin_id2);
                                 <div style="height: 14px;"></div>
                                 <div class="card m-auto" style="max-width:850px">
                                     <div class="card-body">
-                                        <form class="d-flex align-items-center"><i class="fas fa-search d-none d-sm-block h4 text-body m-0"></i><input class="form-control form-control-lg flex-shrink-1 form-control-borderless" type="search" placeholder="Search AppID, Name or Form no" name="searchbar"><button class="btn btn-success btn-lg" type="submit">Search</button></form>
+                                        <form action="../search.php" method="GET" class="d-flex align-items-center"><i class="fas fa-search d-none d-sm-block h4 text-body m-0"></i><input class="form-control form-control-lg flex-shrink-1 form-control-borderless" type="search" placeholder="Search AppID or Form no" name="searchparam"><button class="btn btn-success btn-lg" type="submit" name="searchbtn">Search</button></form>
                                     </div>
                                 </div>
                             </div>
@@ -268,77 +272,92 @@ $admin_id22=md5($admin_id2);
                     <div class="col">
                         <div class="card shadow mb-3">
                             <div class="card-header py-3">
+                           <?php 
+                           //if (isset($_GET['editbtn'])) {
+    $search = $_GET['app_id'];
+    $sql = "SELECT * FROM candidates WHERE `appid` = $search";
+    $result = mysqli_query($db, $sql);
+    $row = mysqli_fetch_assoc($result);
+    ?>
                                 <p class="text-primary m-0 font-weight-bold">Program Info</p>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form action="process_editapp.php" method="POST">
                                     <div class="form-row">
                                         <div class="col-md-5">
-                                            <div class="form-group"><label for="email" style="color: var(--red);"><strong>Program Name</strong></label><!-- Start: NZDropdown-Singlee --><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="program" value="<?php echo $row['program']; ?>">
-                                                    <option value="None" selected="">None</option>
-                                                    <option value="BM">Basic Midwifery</option>
-                                                    <option value="PBN">Post-Basic Nursing</option>
-                                                    <option value="BN">Basic Nursing</option>
+                                            <div class="form-group"><label for="email" style="color: var(--red);"><strong>Program Name</strong></label><!-- Start: NZDropdown-Singlee --><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" name="progname" >
+                                            <option <?php if ($row['progname']=='None') { echo 'selected=selected'; } ?>>None</option>
+                                            <option <?php if ($row['progname']=='BM') { echo 'selected=selected'; } ?>>BM</option>
+                                            <option <?php if ($row['progname']=='PBN') { echo 'selected=selected'; } ?>>PBN</option>
+                                            <option <?php if ($row['progname']=='BN') { echo 'selected=selected'; } ?>>BN</option>
+                                                    
                                                 </select><!-- End: NZDropdown-Singlee -->
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <div class="form-group"><label for="email" style="color: var(--red);"><strong>Year</strong></label><!-- Start: NZDropdown-Singlee --><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="pyear" value="<?php echo $row['pyear']; ?>">
-                                                    <option value="None" selected="">None</option>
-                                                    <option value="2022">2022</option>
-                                                    <option value="2023">2023</option>
-                                                    <option value="2024">2024</option>
-                                                    <option value="2025">2025</option>
-                                                    <option value="2026">2026</option>
-                                                    <option value="2027">2027</option>
-                                                    <option value="2028">2028</option>
-                                                    <option value="2029">2029</option>
-                                                    <option value="2030">2030</option>
+                                            <div class="form-group"><label for="email" style="color: var(--red);"><strong>Year</strong></label><!-- Start: NZDropdown-Singlee --><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="progyr" value="<?php echo $row['progyr']; ?>">
+                                                    <option <?php if ($row['progyr']=='None') { echo 'selected=selected'; } ?>>None</option>
+                                                    <option <?php if ($row['progyr']=='2022') { echo 'selected=selected'; } ?>>2022</option>
+                                                    <option <?php if ($row['progyr']=='2023') { echo 'selected=selected'; } ?>>2023</option>
+                                                    <option <?php if ($row['progyr']=='2024') { echo 'selected=selected'; } ?>>2024</option>
+                                                    <option <?php if ($row['progyr']=='2025') { echo 'selected=selected'; } ?>>2025</option>
+                                                    <option <?php if ($row['progyr']=='2026') { echo 'selected=selected'; } ?>>2026</option>
+                                                    <option <?php if ($row['progyr']=='2027') { echo 'selected=selected'; } ?>>2027</option>
+                                                    <option <?php if ($row['progyr']=='2028') { echo 'selected=selected'; } ?>>2028</option>
+                                                    <option <?php if ($row['progyr']=='2029') { echo 'selected=selected'; } ?>>2029</option>
+                                                    <option <?php if ($row['progyr']=='2020') { echo 'selected=selected'; } ?>>2030</option>
+                                                    <option <?php if ($row['progyr']=='2031') { echo 'selected=selected'; } ?>>2031</option>
                                                 </select><!-- End: NZDropdown-Singlee -->
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group"><label for="email" style="color: var(--red);"><strong>Stream</strong></label><!-- Start: NZDropdown-Singlee --><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="stream" value="<?php echo $row['stream']; ?>">
-                                                    <option value="None" selected="">None</option>
-                                                    <option value="A">A</option>
-                                                    <option value="B">B</option>
+                                                    <option <?php if ($row['stream']=='None') { echo 'selected=selected'; } ?>>None</option>
+                                                    <option <?php if ($row['stream']=='A') { echo 'selected=selected'; } ?>>A</option>
+                                                    <option <?php if ($row['stream']=='B') { echo 'selected=selected'; } ?>>B</option>
+                                                    <!--option value="B">B</option-->
                                                 </select><!-- End: NZDropdown-Singlee -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group"><label for="formno" style="color: var(--red);"><strong>Form Number</strong></label><input class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="form_no" value="<?php echo $row['form_no']; ?>">
+                                                   
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col"></div>
                                     </div>
-                                </form>
+                                
                             </div>
                             <div class="card-header py-3">
                                 <p class="text-primary m-0 font-weight-bold">Candidate Bio</p>
                             </div>
                             <div class="card-body">
-                                <form>
+                                
                                     <div class="form-row">
                                         <div class="col">
-                                            <div class="form-group"><label for="username"><strong>Surname*</strong><br></label><input class="form-control" type="text" name="surname" autocomplete="off" required="" value="<?php echo $row['surname']; ?>"></div>
+                                            <div class="form-group"><label for="sname"><strong>Surname*</strong><br></label><input class="form-control" type="text" name="sname" value="<?php echo $row['sname']; ?>" readonly=""></div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group"><label for="email"><strong>First Name*</strong></label><input class="form-control" type="email" name="fname" autocomplete="off" required="" value="<?php echo $row['fname']; ?>"></div>
+                                            <div class="form-group"><label for="fname"><strong>First Name*</strong></label><input class="form-control" type="text" name="fname" value="<?php echo $row['fname']; ?>" readonly=""></div>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <div class="form-group"><label for="first_name"><strong>Other Name</strong></label><input class="form-control" type="text" name="oname" autocomplete="off" value="<?php echo $row['oname']; ?>"></div>
-                                            <div class="form-group"><label for="country"><strong>Gender</strong></label><!-- Start: NZDropdown-Singlee --><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="gender" value="<?php echo $row['gender']; ?>">
+                                            <div class="form-group"><label for="o_name"><strong>Other Name</strong></label><input class="form-control" type="text" name="oname" value="<?php echo $row['oname']; ?>" readonly=""></div>
+                                            <div class="form-group"><label for="gender"><strong>Gender</strong></label><!-- Start: NZDropdown-Singlee --><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="gender" value="<?php echo $row['gender']; ?>">
                                                     <option value="Female" selected="">Female</option>
                                                     <option value="Male">Male</option>
                                                 </select><!-- End: NZDropdown-Singlee -->
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group"><label for="last_name"><strong>Date of Birth*</strong></label><input class="form-control" type="date" required="" name="dob" value="<?php echo $row['dob']; ?>"></div>
+                                            <div class="form-group"><label for="DOB"><strong>Date of Birth*</strong></label><input class="form-control" type="date" required="" name="dob" value="<?php echo $row['dob']; ?>"></div>
                                         </div>
                                     </div>
                                     <div class="form-group"></div>
-                                </form>
+                                
                             </div>
                         </div>
                         <div class="card shadow">
@@ -346,54 +365,56 @@ $admin_id22=md5($admin_id2);
                                 <p class="text-primary m-0 font-weight-bold">Contact Information</p>
                             </div>
                             <div class="card-body">
-                                <form>
+                               
                                     <div class="form-group"><label for="address"><strong>Email Address*</strong><br></label><input class="form-control" type="text" name="email" inputmode="email" autocomplete="off" required="" value="<?php echo $row['email']; ?>"></div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <div class="form-group"><label for="city"><strong>Phone #</strong></label><input class="form-control" type="text" name="phone1" inputmode="tel" maxlength="11" minlength="11" required="" value="<?php echo $row['phone1']; ?>"></div>
-                                            <div class="form-group"><label for="city"><strong>State</strong></label><!-- Start: NZDropdown-Singlee --><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="state" value="<?php echo $row['state']; ?>">
-                                                    <option value="Abia" selected="">Abia</option>
-                                                    <option value="Adamawa">Adamawa</option>
-                                                    <option value="Akwa Ibom">Akwa Ibom</option>
-                                                    <option value="Anambra">Anambra</option>
-                                                    <option value="Bauchi">Bauchi</option>
-                                                    <option value="Bayelsa">Bayelsa</option>
-                                                    <option value="Benue">Benue</option>
-                                                    <option value="Borno">Borno</option>
-                                                    <option value="Cross River">Cross River</option>
-                                                    <option value="Delta">Delta</option>
-                                                    <option value="Ebonyi">Ebonyi</option>
-                                                    <option value="Edo">Edo</option>
-                                                    <option value="Ekiti">Ekiti</option>
-                                                    <option value="Enugu">Enugu</option>
-                                                    <option value="FCT">FCT</option>
-                                                    <option value="Gombe">Gombe</option>
-                                                    <option value="Imo">Imo</option>
-                                                    <option value="Jigawa">Jigawa</option>
-                                                    <option value="Kaduna">Kaduna</option>
-                                                    <option value="Kano">Kano</option>
-                                                    <option value="Katsina">Katsina</option>
-                                                    <option value="Kebbi">Kebbi</option>
-                                                    <option value="Kogi">Kogi</option>
-                                                    <option value="Kwara">Kwara</option>
-                                                    <option value="Lagos">Lagos</option>
-                                                    <option value="Nasarawa">Nasarawa</option>
-                                                    <option value="Niger">Niger</option>
-                                                    <option value="Ogun">Ogun</option>
-                                                    <option value="Ondo">Ondo</option>
-                                                    <option value="Osun">Osun</option>
-                                                    <option value="Oyo">Oyo</option>
-                                                    <option value="Plateau">Plateau</option>
-                                                    <option value="Rivers">Rivers</option>
-                                                    <option value="Sokoto">Sokoto</option>
-                                                    <option value="Taraba">Taraba</option>
-                                                    <option value="Yobe">Yobe</option>
-                                                    <option value="Zamfara">Zamfara</option>
+                                            <div class="form-group"><label for="phone"><strong>Phone #</strong></label><input class="form-control" type="text" name="phone1" inputmode="tel" maxlength="11" minlength="11" required="" value="<?php echo $row['phone1']; ?>"></div>
+                                            <div class="form-group"><label for="state"><strong>State</strong></label><!-- Start: NZDropdown-Singlee --><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="state">
+                                                    <option <?php if ($row['state']=='None') { echo 'selected=selected'; } ?>>None</option>
+                                                    <option <?php if ($row['state']=='Abia') { echo 'selected=selected'; } ?>>Abia</option>
+                                                    <option <?php if ($row['state']=='Adamawa') { echo 'selected=selected'; } ?>>Adamawa</option>
+                                                    <option <?php if ($row['state']=='Akwa Ibom') { echo 'selected=selected'; } ?>>Akwa Ibom</option>
+                                                    <option <?php if ($row['state']=='Anambra') { echo 'selected=selected'; } ?>>Anambra</option>
+                                                    <option <?php if ($row['state']=='Bauchi') { echo 'selected=selected'; } ?>>Bauchi</option>
+                                                    <option <?php if ($row['state']=='Bayelsa') { echo 'selected=selected'; } ?>>Bayelsa</option>
+                                                    <option <?php if ($row['state']=='Benue') { echo 'selected=selected'; } ?>>Benue</option>
+                                                    <option <?php if ($row['state']=='Borno') { echo 'selected=selected'; } ?>>Borno</option>
+                                                    <option <?php if ($row['state']=='Cross River') { echo 'selected=selected'; } ?>>Cross River</option>
+                                                    <option <?php if ($row['state']=='Delta') { echo 'selected=selected'; } ?>>Delta</option>
+                                                    <option <?php if ($row['state']=='Ebonyi') { echo 'selected=selected'; } ?>>Ebonyi</option>
+                                                    <option <?php if ($row['state']=='Edo') { echo 'selected=selected'; } ?>>Edo</option>
+                                                    <option <?php if ($row['state']=='Ekiti') { echo 'selected=selected'; } ?>>Ekiti</option>
+                                                    <option <?php if ($row['state']=='Enugu') { echo 'selected=selected'; } ?>>Enugu</option>
+                                                    <option <?php if ($row['state']=='FCT') { echo 'selected=selected'; } ?>>FCT</option>
+                                                    <option <?php if ($row['state']=='Gombe') { echo 'selected=selected'; } ?>>Gombe</option>
+                                                    <option <?php if ($row['state']=='Imo') { echo 'selected=selected'; } ?>>Imo</option>
+                                                    <option <?php if ($row['state']=='Jigawa') { echo 'selected=selected'; } ?>>Jigawa</option>
+                                                    <option <?php if ($row['state']=='Kaduna') { echo 'selected=selected'; } ?>>Kaduna</option>
+                                                    <option <?php if ($row['state']=='Kano') { echo 'selected=selected'; } ?>>Kano</option>
+                                                    <option <?php if ($row['state']=='Katsina') { echo 'selected=selected'; } ?>>Katsina</option>
+                                                    <option <?php if ($row['state']=='Kebbi') { echo 'selected=selected'; } ?>>Kebbi</option>
+                                                    <option <?php if ($row['state']=='Kogi') { echo 'selected=selected'; } ?>>Kogi</option>
+                                                    <option <?php if ($row['state']=='Kwara') { echo 'selected=selected'; } ?>>Kwara</option>
+                                                    <option <?php if ($row['state']=='Lagos') { echo 'selected=selected'; } ?>>Lagos</option>
+                                                    <option <?php if ($row['state']=='Nasarawa') { echo 'selected=selected'; } ?>>Nasarawa</option>
+                                                    <option <?php if ($row['state']=='Niger') { echo 'selected=selected'; } ?>>Niger</option>
+                                                    <option <?php if ($row['state']=='Ogun') { echo 'selected=selected'; } ?>>Ogun</option>
+                                                    <option <?php if ($row['state']=='Ondo') { echo 'selected=selected'; } ?>>Ondo</option>
+                                                    <option <?php if ($row['state']=='Osun') { echo 'selected=selected'; } ?>>Osun</option>
+                                                    <option <?php if ($row['state']=='Oyo') { echo 'selected=selected'; } ?>>Oyo</option>
+                                                    <option <?php if ($row['state']=='Plateau') { echo 'selected=selected'; } ?>>Plateau</option>
+                                                    <option <?php if ($row['state']=='Rivers') { echo 'selected=selected'; } ?>>Rivers</option>
+                                                    <option <?php if ($row['state']=='Sokoto') { echo 'selected=selected'; } ?>>Sokoto</option>
+                                                    <option <?php if ($row['state']=='Taraba') { echo 'selected=selected'; } ?>>Taraba</option>
+                                                    <option <?php if ($row['state']=='Yobe') { echo 'selected=selected'; } ?>>Yobe</option>
+                                                    <option <?php if ($row['state']=='Zamfara') { echo 'selected=selected'; } ?>>Zamfara</option>
+                                                    <option <?php if ($row['state']=='Non Nigerian') { echo 'selected=selected'; } ?>>Non Nigerian</option>
                                                 </select><!-- End: NZDropdown-Singlee -->
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group"><label for="country"><strong>Alternate Phone #</strong></label><input class="form-control" type="text" name="phone2" inputmode="tel" maxlength="17" value="<?php echo $row['phone2']; ?>"></div>
+                                            <div class="form-group"><label for="country"><strong>Alternate Phone #</strong></label><input class="form-control" type="text" name="phone2" inputmode="tel" maxlength="11" value="<?php echo $row['phone2']; ?>"></div>
                                             <div class="form-group"><label for="country"><strong>Nationality</strong></label><!-- Start: NZDropdown-Singlee --><select class="form-control form-control-lg" style="height: 37px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;" required="" name="nationality" value="<?php echo $row['nationality']; ?>">
                                                     <option value="Nigerian" selected="">Nigerian</option>
                                                     <option value="Non Nigerian">Non Nigerian</option>
@@ -419,7 +440,7 @@ $admin_id22=md5($admin_id2);
 
             <!-- Upload image input-->
             <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+                <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0" required="">
                 <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                 <div class="input-group-append">
                     <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
@@ -428,7 +449,7 @@ $admin_id22=md5($admin_id2);
 
             <!-- Uploaded image area-->
             <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
-            <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+            <div class="image-area mt-4"><img id="imageResult" src="<?php echo $row['photolink']; ?>" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
 
         </div>
     </div>
@@ -437,7 +458,7 @@ $admin_id22=md5($admin_id2);
                                     <div class="form-group" id="formg3">
                                         <div style="width: 425.6px;height: 17px;margin: 0px;padding: 14px;"></div>
                                     </div>
-                                    <div class="form-group" id="formg-1"><button class="btn btn-primary btn-sm" type="reset" style="background: var(--red);">Reset</button><button class="btn btn-primary btn-sm" type="submit" style="margin: 4px;">Save Record</button></div>
+                                    <div class="form-group" id="formg-1"><button class="btn btn-primary btn-sm" type="reset" style="background: var(--red);">Reset</button><button class="btn btn-primary btn-sm" type="submit" name="formsubmit" style="margin: 4px;">Save Changes</button></div>
                                 </form>
                             </div>
                         </div>

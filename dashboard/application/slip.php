@@ -4,13 +4,13 @@ include_once ("../../include/sessioncheck.php");
 include_once ("../../include/p1checker.php");
 
 //Recover Info From Session
-$a_email = $_SESSION['a_email'];
-$a_email = base64_decode($a_email);
+//$a_email = $_SESSION['a_email'];
+//$a_email = base64_decode($a_email);
 
-$uid = base64_decode($_SESSION['uid']);
-$role = $_SESSION['role'];
-$a_fname  = $_SESSION['a_fname'];
-$a_lname = $_SESSION['a_lname'];
+//$uid = base64_decode($_SESSION['uid']);
+//$role = $_SESSION['role'];
+//$a_fname  = $_SESSION['a_fname'];
+//$a_lname = $_SESSION['a_lname'];
 
 ?>
 <!DOCTYPE html>
@@ -47,7 +47,7 @@ $a_lname = $_SESSION['a_lname'];
     <?php 
                           if (isset($_GET['app_id'])) {
     $search = $_GET['app_id'];
-    $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.form_no LIKE '$search' OR candidates.appid LIKE '$search' OR candidates.sname LIKE '$search' OR candidates.phone1 LIKE '$search' LIMIT 1";
+    $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.appid = '$search' OR candidates.form_no = '$search' OR candidates.sname = '$search' OR candidates.phone1 = '$search' LIMIT 1";
     $result = mysqli_query($db, $sql);
        if (mysqli_num_rows($result) == 0){
            echo "<h4 class='display-1 fs-4 fw-light'>Sorry! No Record Found Matching the Information you Entered</h4>";
@@ -68,7 +68,7 @@ $a_lname = $_SESSION['a_lname'];
                             <td><label class='form-label'>Program Year:</label>
                                 <h4 class='display-1 fs-4 fw-light'>".$row['progyr']." - ".$row['stream']."</h4>
                             </td>
-                            <td><img class='rounded-circle placeholder border' width='120' height='120' alt='Passport' src=".$row['photolink']."></td>
+                            <td><img class='rounded-0 border' width='120' height='120' alt='Passport' src=".$row['photolink']."></td>
                         </tr>
                         <tr>
                             <td><label class='form-label'>Candidate's Name:</label>

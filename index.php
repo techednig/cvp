@@ -61,8 +61,8 @@ session_destroy();
                                         <hr><a class="btn btn-primary disabled d-block btn-google btn-user w-100 mb-2" role="button"><i class="fab fa-google"></i>&nbsp; Login with Google</a><a class="btn btn-primary disabled d-block btn-facebook btn-user w-100" role="button"><i class="fab fa-facebook-f"></i>&nbsp; Login with Facebook</a>
                                         <hr>
                                     </form>
-                                    <div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
-                                    <div class="text-center"><a class="small" href="register.html">Create an Account!</a></div>
+                                    <div class="text-center"><a class="small" href="#">Forgot Password?</a></div>
+                                    <div class="text-center"><a class="small" href="register.php">Create an Account!</a></div>
                                 </div>
                             </div>
                         </div>

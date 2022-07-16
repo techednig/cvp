@@ -423,7 +423,7 @@ $a_lname = $_SESSION['a_lname'];
 
             <!-- Upload image input-->
             <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                <input id="fileToUploadd" type="file" name="fileToUpload" onchange="readURL(this);" class="form-controll border-0">
+                <input id="fileToUploadd" type="file" name="fileToUpload" onchange="readURL(this);" class="form-controll border-0" required="">
                 
                 
             </div>

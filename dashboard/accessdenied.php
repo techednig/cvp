@@ -1,3 +1,19 @@
+<?php
+include ("../include/server.php");
+include ("../include/sessioncheck.php");
+//include ("../include/p1checker.php");
+
+//Recover Info From Session
+$a_email = $_SESSION['a_email'];
+$a_email = base64_decode($a_email);
+
+$uid = base64_decode($_SESSION['uid']);
+$privilege = $_SESSION['privilege'];
+$a_fname = $_SESSION['a_fname'];
+$a_lname = $_SESSION['a_lname'];
+$role = $_SESSION['role'];
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -209,7 +225,7 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br>&lt;?Php Echo $Fullname; ?&gt;<br><br></span><img class="border rounded-circle img-profile" src="assets/img/avatars/jpeg1.jpg"></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br><?php echo $a_fname," ",$a_lname; ?><br><br></span><img class="border rounded-circle img-profile" src="assets/img/avatars/jpeg1.jpg"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="profile.html"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="../config/logout.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
@@ -224,7 +240,7 @@
                         <h1 class="text-capitalize">Restricted Area</h1>
                     </div>
                     <div class="col">
-                        <p class="text-capitalize" style="color: var(--blue);font-family: Oswald, sans-serif;text-align: center;">LOGGED IN AS: <span style="color: var(--green);">&lt;?php echo $fullname; ?&gt;&nbsp;</span></p>
+                        <p class="text-capitalize" style="color: var(--blue);font-family: Oswald, sans-serif;text-align: center;">LOGGED IN AS: <span style="color: var(--green);"><?php echo $role; ?></span></p>
                     </div><!-- Start: Chart -->
                     <div class="row">
                         <div class="col"></div>

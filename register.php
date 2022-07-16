@@ -29,19 +29,34 @@
                                 <h4 class="text-dark mb-4">Create an Account!</h4>
                             </div>
                             <form class="user" action="processsignup.php" method="POST">
-                                <div class="row mb-3">
+                            <small class="form-text text-danger" style="font-size: 14px;">&nbsp;</div><?php
+    
+            
+                                        if(isset($_GET['msg'])){
+                                        $msg = base64_decode($_GET['msg']);
+                            
+                                            if($msg!=""){
+                                                echo "<i class='fas fa-exclamation-triangle' style='color: var(--bs-red)'></i>"; echo $msg;
+                                                //echo $_GET['msg'];
+                                            }
+                                            
+                                            }
+                                        
+                            ?></small> 
+                               
+                            <div class="row mb-3">
                                     <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="First Name" name="a_fname"></div>
-                                    <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Surname" name="a_sname"></div>
+                                    <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Surname" name="a_lname"></div>
                                 </div>
                                 <div class="mb-3"><input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email Address" name="a_email" inputmode="email" autocomplete="off"></div>
                                 <div class="row mb-3">
                                     <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="examplePasswordInput" placeholder="Password" name="a_password"></div>
-                                    <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="exampleRepeatPasswordInput" placeholder="Repeat Password" name="a_repassword"></div>
-                                </div><button class="btn btn-primary d-block btn-user w-100" type="submit">Register Account</button>
+                                    <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="exampleRepeatPasswordInput" placeholder="Repeat Password" name="repassword"></div>
+                                </div><button class="btn btn-primary d-block btn-user w-100" type="submit" name="submit">Register Account</button>
                                 <hr><a class="btn btn-primary disabled d-block btn-google btn-user w-100 mb-2" role="button"><i class="fab fa-google"></i>&nbsp; Register with Google</a><a class="btn btn-primary disabled d-block btn-facebook btn-user w-100" role="button"><i class="fab fa-facebook-f"></i>&nbsp; Register with Facebook</a>
                                 <hr>
                             </form>
-                            <div class="text-center"><a class="small" href="forgot-password.php">Forgot Password?</a></div>
+                            <div class="text-center"><a class="small" href="#">Forgot Password?</a></div>
                             <div class="text-center"><a class="small" href="index.php">Already have an account? Login!</a></div>
                         </div>
                     </div>

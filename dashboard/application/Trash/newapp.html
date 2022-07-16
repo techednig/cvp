@@ -1,3 +1,21 @@
+<?php
+include_once ('../include/server.php');
+include_once ("../include/sessioncheck.php");
+include_once ("../include/p1checker.php");
+
+//Recover Info From Session
+$a_email = $_SESSION['a_email'];
+$a_email = base64_decode($a_email);
+
+$uid = base64_decode($_SESSION['uid']);
+$role = $_SESSION['role'];
+$a_fname  = $_SESSION['a_fname '];
+$a_lname = $_SESSION['a_lname'];
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 
@@ -29,32 +47,7 @@
     <link rel="stylesheet" href="../assets/css/Table-With-Search.css">
 </head>
 
-<body id="page-top"><?php
-require_once "config/conn.php";
-require_once "config/checkUser.php";
-
-if(isset($_GET['msg'])){
-	$msg = $_GET['msg'];
-}
-?>
-<?php
-$link = mysqli_connect("localhost", "root", "", "vacreg");
-
-if ($link === false){
-die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-?>
-<?php
-$sql = "SELECT * FROM admin WHERE admin_id='".$_SESSION['admin_id']."'";
-$result = mysql_query($sql);
-$fetch = mysql_fetch_assoc($result);
-
-$fullname= $fetch['fullname'];
-$department = $fetch['department'];
-$phone= $fetch['phone'];
-$admin_id2= $fetch['admin_id'];
-$admin_id22=md5($admin_id2);
-?>
+<body id="page-top">
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: rgb(2,81,52);">
             <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
@@ -246,6 +239,12 @@ $admin_id22=md5($admin_id2);
                 <p class="text-capitalize" style="color: var(--blue);font-family: Oswald, sans-serif;text-align: center;">LOGGED IN AS: <span style="color: var(--green);">&lt;?php echo $fullname; ?&gt;&nbsp;</span></p>
                 <div class="container-fluid">
                     <div class="col text-center">
+                        <div class="toast fade hide" role="alert" id="toast-1">
+                            <div class="toast-header text-white bg-info"><img class="mr-2" src="../assets/img/avatars/avatar5.jpeg"><strong class="mr-auto">Capture New Application</strong><small>1 min ago</small><button class="close ml-2 mb-1 close" data-dismiss="toast"><span aria-hidden="true">×</span></button></div>
+                            <div class="toast-body" role="alert">
+                                <p style="font-family: Oswald, sans-serif;">Entry Successful! Scroll to the bottom of page to view last entry.</p>
+                            </div>
+                        </div>
                         <h3 class="text-capitalize">capture new application</h3>
                     </div>
                     <div class="col">
@@ -421,7 +420,7 @@ $admin_id22=md5($admin_id2);
                                     <div class="form-group" id="formg3">
                                         <div style="width: 425.6px;height: 17px;margin: 0px;padding: 14px;"></div>
                                     </div>
-                                    <div class="form-group" id="formg-1"><button class="btn btn-primary btn-sm" type="reset" style="background: var(--red);">Reset</button><button class="btn btn-primary btn-sm" type="submit" style="margin: 4px;">Save Record</button></div>
+                                    <div class="form-group" id="formg-1"><button class="btn btn-primary btn-sm" type="reset" style="background: var(--red);">Reset</button><button class="btn btn-primary btn-sm" type="submit" style="margin: 4px;" data-target="#toast-1" data-toggle="toast">Save Record</button></div>
                                 </form>
                             </div>
                         </div>
@@ -441,6 +440,7 @@ $admin_id22=md5($admin_id2);
                                             <th class="text-dark bg-info">First Name</th>
                                             <th class="text-dark bg-info">State</th>
                                             <th class="text-dark bg-info">Phone 1</th>
+                                            <th class="text-dark bg-info border rounded">Entry Date/Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -450,6 +450,7 @@ $admin_id22=md5($admin_id2);
                                             <td>Cell 3</td>
                                             <td>Cell 4</td>
                                             <td>Cell 4</td>
+                                            <td>Cell 6</td>
                                         </tr>
                                         <tr>
                                             <td>Cell 3</td>
@@ -457,6 +458,7 @@ $admin_id22=md5($admin_id2);
                                             <td>Cell 3</td>
                                             <td>Cell 4</td>
                                             <td>Cell 4</td>
+                                            <td>Cell 6</td>
                                         </tr>
                                         <tr>
                                             <td>Cell 1</td>
@@ -464,6 +466,7 @@ $admin_id22=md5($admin_id2);
                                             <td>Cell 3</td>
                                             <td>Cell 4</td>
                                             <td>Cell 5</td>
+                                            <td>Cell 6</td>
                                         </tr>
                                     </tbody>
                                 </table>

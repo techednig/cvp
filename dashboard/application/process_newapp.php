@@ -26,12 +26,12 @@ $state = mysqli_real_escape_string($db, $_POST['state']);
 $nationality = mysqli_real_escape_string($db, $_POST['nationality']);
 
 //Check for duplicate form number
-$sql = "SELECT form_no FROM candidates WHERE form_no = $form_no";
+$sql = "SELECT `form_no` FROM `candidates` WHERE `form_no` = $form_no";
 $result = mysqli_query($db, $sql);
 $row = mysqli_num_rows($result);
 
-if ($row >= 2){
-    $msg = "The Form Number:".$form_no."Already Exists. Please Check For Duplicate";
+if ($row > 1){
+    $msg = "The Form Number: ".$form_no." Already Exists. Please Investigate Duplicate Form Number";
     $msgEncoded = base64_encode($msg);
 header("location:newapp.php?msg=$msgEncoded");
 }
@@ -41,7 +41,7 @@ else {
 if (isset($_POST['formsubmit'])) {
 
   $filename = $_FILES["fileToUpload"]["name"];
-
+//$filename = htmlspecialchars($filename);
   $tempname = $_FILES["fileToUpload"]["tmp_name"];  
 
   //$folder = "cvp/dashboard/application/img_passport/".$filename;
@@ -64,11 +64,11 @@ if (move_uploaded_file($tempname, $folder)) {
 
     $msg = "Form No: ".$form_no." and The file ".htmlspecialchars(basename($_FILES["fileToUpload"]["name"]))." has been uploaded.";
     $msgEncoded = base64_encode($msg);
-header("location:newapp.php?msg=$msgEncoded newrecord=$new_id");
+header("location:newapp.php?msg=$msgEncoded");
 
 } else{
 
-    $msg = "Record and Image Link Successfuly Captured. Record ID:".$new_id;
+    $msg = "Error Uploading Record. Please Try Again or Contact Webmaster";
     $msgEncoded = base64_encode($msg);
 header("location:newapp.php?msg=$msgEncoded");
 
