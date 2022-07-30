@@ -79,7 +79,7 @@ $_SESSION['role'] = $role;
                     <div class="container-fluid d-flex flex-column p-0">
                         <hr class="sidebar-divider my-0">
                         <ul class="navbar-nav text-light" id="accordionSidebar-1">
-                            <li class="nav-item"><a class="nav-link text-muted" href="../welcome.php"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="welcome.php"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
                             <hr class="sidebar-divider">
                             <div class="sidebar-heading">
                                 <p class="mb-0">INTERFACE</p>

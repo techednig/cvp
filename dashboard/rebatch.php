@@ -225,20 +225,35 @@ $a_lname = $_SESSION['a_lname'];
                 </nav>
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Batch/ Re-batch Candidate</h3>
+                    <div><small class="form-text text-danger" style="font-size: 14px;">&nbsp;<?php
+    
+            
+    if(isset($_GET['msg'])){
+    $msg = base64_decode($_GET['msg']);
 
+        if($msg!=""){
+            echo "<i class='fas fa-exclamation-triangle' style='color: var(--bs-red)'></i>"; echo $msg;
+            //echo $_GET['msg'];
+        }
+        
+        }
+    
+?></small></div>
                     <?php 
-                           if (isset($_GET['app_id'])) {
-    $search = $_GET['app_id'];
+                           if (isset($_GET['rebatchbtn'])) {
+    $search = $_GET['rebatchbtn'];
     $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.form_no LIKE '$search' OR candidates.appid LIKE '$search' LIMIT 1";
     $result = mysqli_query($db, $sql);
          if (mysqli_num_rows($result) == 1)
        {
         $row = mysqli_fetch_assoc($result);
+        //Move appid into Session for use by process_rebatch.php
+        $_SESSION['c_app_id'] = $row['appid'];
            echo "
                  <div class='row mb-3'>
                         <div class='col-lg-4'>
                             <div class='card mb-3'>
-                                <div class='card-body text-center shadow'><img class='rounded-circle mb-3 mt-4' src=application/".$row['photolink']." width='160' height='160'>
+                                <div class='card-body text-center shadow'><img class='rounded-0 border mb-3 mt-4' src=application/".$row['photolink']." width='160' height='160'>
                                     <div class='mb-3'><button class='btn btn-primary btn-sm' type='button'>Change Photo</button></div>
                                 </div>
                             </div>
@@ -289,10 +304,10 @@ $a_lname = $_SESSION['a_lname'];
                                             <p class='text-primary m-0 font-weight-bold'>Batch Information</p>
                                         </div>
                                         <div class='card-body'>
-                                            <form action='process_rebatch.php' method='POST' enctype='multipart/form-data'>
+                                            <form action='application/process_rebatch.php' method='POST' enctype='multipart/form-data'>
                                                 <div class='form-row'>
                                                     <div class='col-md-4'>
-                                                        <div class='form-group'><label for='currbcode'><strong>Current Batch Number</strong></label><input class='form-control' type='text' name='currbcode' value=".$row['bcode']." readonly=''></div>
+                                                        <div class='form-group'><label for='currbcode'><strong>Current Batch ID</strong></label><input class='form-control' type='text' name='currbcode' value=".$row['bcode']." readonly=''></div>
                                                     </div>
                                                     <div class='col-md-5'>
                                                         <div class='form-group' style='margin: 8px;'><label for='purpose'><strong>Exam Date</strong></label><label for='amount' style='margin: -1px;'><input class='form-control' type='date' name='curredate' style='margin: -6px;' readonly='' value=".$row['edate']."><br></label></div>
@@ -300,13 +315,13 @@ $a_lname = $_SESSION['a_lname'];
                                                 </div>
                                                 <div class='form-row'>
                                                     <div class='col'>
-                                                        <div class='form-group'><label for='comment'><strong>Enter New Batch</strong></label><span>e.g 4A</span><input class='form-control' type='text' name='newbcode' maxlenght='2' required=''></div>
+                                                        <div class='form-group'><label for='label'><strong>Enter New Batch</strong></label><span>e.g 4A</span><input class='form-control' type='text' name='newbcode' minlenght='2' maxlenght='2' required=''></div>
                                                     </div>
                                                     <div class='col'>
-                                                        <div class='form-group'><label for='comment'><strong>Hall</strong></label><span>(e.g A, B)</span><input class='form-control' type='text' name='hall' maxlenght='2' required=''></div>
+                                                        <div class='form-group'><label for='label'><strong>Hall</strong></label><span>(e.g A, B)</span><input class='form-control' type='text' name='hall' maxlenght='2' required=''></div>
                                                     </div>
                                                     <div class='col'>
-                                                        <div class='form-group'><label for='eid'><strong>Batch ID</strong><br></label><input class='form-control' type='text' name='batchid' value=".$row['batchid']." readonly='' style='width: 100px;'></div>
+                                                        <div class='form-group'><label for='eid'><strong>Batch Num</strong><br></label><input class='form-control' type='text' name='batchnum' value=".$row['batchid']." readonly='' style='width: 100px;'></div>
                                                     </div>
                                                 </div>
                                                 <div class='form-group'><button class='btn btn-primary btn-sm' type='submit' name='rebatchbtn'>Change Batch</button></div>
@@ -335,22 +350,11 @@ $a_lname = $_SESSION['a_lname'];
                             </div>
                         </div>
                     </div>
-                    <div class="card shadow mb-5">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 font-weight-bold">Settings</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <form>
-                                        <div class="form-group"></div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
+            </div>
+                      
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © FCTA SOMN 2022</span></div>
