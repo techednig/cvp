@@ -60,8 +60,16 @@ if (mysqli_num_rows($result) == 1){
 //$sql = "UPDATE `candidates`, `batchtable` SET `candidates`.`batchid` = '$newbatchid' `batchtable`.`batchid` = '$newbatchid' `batchtable`.`hall` = '$hall' WHERE `candidates`.`appid` AND `batchtable`.`appid` = '$app_id'";
 $sql = "UPDATE `candidates` SET `candidates`.`batchid` = $newbatchid WHERE `appid` = $app_id";
 $result = mysqli_query($db, $sql);
+$sql0 = "UPDATE `candidates` SET `candidates`.`updatedby` = $uid WHERE `appid` = $app_id";
+$result0 = mysqli_query($db, $sql0);
 $sql1 = "UPDATE `batchtable` SET `batchtable`.`batchid` = $newbatchid WHERE `appid` = $app_id";
-$result = mysqli_query($db, $sql);
+$result1 = mysqli_query($db, $sql1);
+$sql2 = "UPDATE `batchtable` SET `batchtable`.`hall` = '$hall' WHERE `appid` = $app_id";
+$result2 = mysqli_query($db, $sql2);
+$sql3 = "UPDATE `batchtable` SET `batchtable`.`seatno` = 0 WHERE `appid` = $app_id";
+$result3 = mysqli_query($db, $sql3);
+$sql4 = "UPDATE `batchtable` SET `batchtable`.`updatedby` = $uid WHERE `appid` = $app_id";
+$result4 = mysqli_query($db, $sql4);
 $msg = "Rebatch of Candidate with Appid: $app_id to New Batch: $newbcode Hall: $hall was Successful";
     $msgEncoded = base64_encode($msg);
     

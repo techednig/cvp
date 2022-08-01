@@ -18,7 +18,7 @@ $query = "SELECT user_id, a_email, privilege FROM adminusers WHERE a_email ='$a_
 $record_row = mysqli_query($db, $query);
 
 //Associative "Query" Array
-$row = mysqli_fetch_array($record_row, MYSQLI_ASSOC);
+$row = mysqli_fetch_assoc($record_row);
 $privi = $row['privilege'];
 
 //Check Admin Account Status
@@ -26,7 +26,7 @@ $query_role = "SELECT roleid, status FROM roles WHERE roleid = '$privi'";
 $role_row_query = mysqli_query($db, $query_role);
 
 //Associative "Query_Role" Array
-$role_row = mysqli_fetch_array($role_row_query, MYSQLI_ASSOC);
+$role_row = mysqli_fetch_assoc($role_row_query);
 
 
 $uid = $row['user_id'];

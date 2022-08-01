@@ -1,3 +1,21 @@
+<?php
+include ("../../include/server.php");
+include ("../../include/sessioncheck.php");
+//include ("../../include/p4checker.php");
+
+//Recover Info From Session
+$a_email = $_SESSION['a_email'];
+$a_email = base64_decode($a_email);
+
+$uid = base64_decode($_SESSION['uid']);
+$role = $_SESSION['role'];
+$a_fname  = $_SESSION['a_fname'];
+$a_lname = $_SESSION['a_lname'];
+$privi = $_SESSION['privilege'];
+
+//print_r($privi);
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -49,7 +67,7 @@
                     <div class="container-fluid d-flex flex-column p-0">
                         <hr class="sidebar-divider my-0">
                         <ul class="navbar-nav text-light" id="accordionSidebar-1">
-                            <li class="nav-item"><a class="nav-link text-muted" href="../welcome.html"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="../welcome.php"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
                             <hr class="sidebar-divider">
                             <div class="sidebar-heading">
                                 <p class="mb-0">INTERFACE</p>
@@ -58,8 +76,8 @@
                                 <div><a class="btn btn-link text-light nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button"><i class="fas fa-users-cog"></i>&nbsp;<span>Application</span></a>
                                     <div class="collapse" id="collapse-1">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="../application/newapp.html">New Application</a><a class="collapse-item" href="../application/search.html">Search/Edit Application</a><a class="collapse-item" href="../printphotocard.html">Print Photocard</a><a class="collapse-item" href="../application/activation.html">Activate Remita</a>
-                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="cards.html">Batch Summary</a><a class="collapse-item" href="../application/rebatch.html"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="../application/rebatch.html"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="../../application/newapp.php">New Application</a><a class="collapse-item" href="../application/search.php">Search/Edit Application</a><a class="collapse-item" href="../accessdenied.php">Print Photocard</a><a class="collapse-item" href="../application/activation.html">Activate Remita</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="cards.html">Batch Summary</a><a class="collapse-item" href="../application/rebatch.php"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="../application/rebatch.php"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
                                         </div>
                                     </div>
                                 </div>
@@ -68,14 +86,14 @@
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button"><i class="fas fa-binoculars"></i>&nbsp;<span>Verification</span></a>
                                     <div class="collapse" id="collapse-2">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../verification/versummary.html">Verification Summary</a><a class="collapse-item" href="utilities-border.html">Verify Candidate</a><a class="collapse-item" href="../verification/print_attend.html">Print Attendance</a><a class="collapse-item" href="utilities-other.html">Other</a>
+                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../verification/versummary.php">Verification Summary</a><a class="collapse-item" href="../verification/verifycand.php">Verify Candidate</a><a class="collapse-item" href="../verification/print_attend.php">Print Attendance</a><a class="collapse-item" href="../accessdenied.php">Other</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-4" href="#collapse-4" role="button"><i class="fas fa-microphone-alt"></i>&nbsp;<span>Interview</span></a>
                                     <div class="collapse" id="collapse-4">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">INTERVIEW SUB-MENU:</h6><a class="collapse-item" href="accessdenied.html">New Interview</a><a class="collapse-item" href="accessdenied.html">My Dashboard</a><a class="collapse-item" href="utilities-animation.html">Print Interview Attendance</a>
+                                            <h6 class="collapse-header">INTERVIEW SUB-MENU:</h6><a class="collapse-item" href="../accessdenied.php">New Interview</a><a class="collapse-item" href="../accessdenied.php">My Dashboard</a><a class="collapse-item" href="print_attend.php">Print Interview Attendance</a>
                                         </div>
                                     </div>
                                 </div>
@@ -96,8 +114,8 @@
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-5" href="#collapse-5" role="button"><i class="fas fa-envelope"></i>&nbsp;<span>Message Center</span></a>
                                     <div class="collapse" id="collapse-5">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--red);">messaging center:</h6><a class="collapse-item" href="accessdenied.html">Compose Message</a><a class="collapse-item" href="accessdenied.html">View Messages</a>
-                                            <h6 class="collapse-header" style="color: var(--red);">CONFIG:</h6><a class="collapse-item" href="404.html">Message Center Config</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">messaging center:</h6><a class="collapse-item" href="../accessdenied.php">Compose Message</a><a class="collapse-item" href="../accessdenied.php">View Messages</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">CONFIG:</h6><a class="collapse-item" href="../accessdenied.php">Message Center Config</a>
                                         </div>
                                     </div>
                                 </div>
@@ -124,9 +142,9 @@
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Enter AppID to Search...">
-                                <div class="input-group-append"><button class="btn btn-primary py-0" type="submit" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
+                        <form action="verifycand.php" method="GET" class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" name="searchparam" maxlength="10" minlength="9" placeholder="Enter AppID to Verify Candidate...">
+                                <div class="input-group-append"><button class="btn btn-primary py-0" type="submit" name="verifybtn" style="background: rgb(2,81,52);"><i class="fas fa-search"></i></button></div>
                             </div>
                         </form>
                         <ul class="navbar-nav flex-nowrap ml-auto">
@@ -209,9 +227,9 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br>&lt;?Php Echo $Fullname; ?&gt;<br><br></span><img class="border rounded-circle img-profile" src="../assets/img/avatars/jpeg1.jpg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="profile.html"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="../config/logout.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br><?Php Echo $a_fname, " ", $a_lname; ?><br><br></span><img class="border rounded-circle img-profile" src="../assets/img/avatars/jpeg1.jpg"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="../../config/logout.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
                             </li>
@@ -220,147 +238,183 @@
                 </nav>
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4" style="text-align: center;">Verify Candidate for Examination</h3>
-                    <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="../assets/img/dogs/jpeg1.jpg" width="160" height="160">
-                                    <div class="mb-3"></div>
-                                </div>
-                            </div>
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="text-primary font-weight-bold m-0">Candidate Name:</h6>
-                                    <h5 class="text-capitalize">nakhe nehizena uhuangho</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 offset-2 offset-lg-0">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="text-primary font-weight-bold m-0">Application Number:</h6>
-                                    <h5 class="text-capitalize">2022101552</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="text-primary font-weight-bold m-0">Form Number:</h6>
-                                    <h5 class="text-capitalize">03227</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-2">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="text-primary font-weight-bold m-0">Program:</h6>
-                                    <h5 class="text-capitalize">Midwifery</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="text-primary font-weight-bold m-0">State:</h6>
-                                    <h5 class="text-capitalize">Edo</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="row mb-3 d-none">
-                                <div class="col">
-                                    <div class="card text-white bg-primary shadow">
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col">
-                                                    <p class="m-0">Peformance</p>
-                                                    <p class="m-0"><strong>65.2%</strong></p>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                            </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card text-white bg-success shadow">
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col">
-                                                    <p class="m-0">Peformance</p>
-                                                    <p class="m-0"><strong>65.2%</strong></p>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                            </div>
-                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card shadow mb-3">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 font-weight-bold">Verify Candidate for Today's Examination</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="purpose"><strong>Verification Status</strong></label><input class="form-control" type="text" name="att_status" required="" value="Absent" style="background: rgb(16,241,146);color: #0e0e0e;" readonly=""></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-group" style="margin: 8px;"><label for="amount" style="margin: -1px;"><strong>Exam Date</strong><input class="form-control" type="text" name="edate" autocomplete="off" required="" readonly=""><br></label></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="comment"><strong>Exam Time</strong></label><input class="form-control" type="text" name="etime" readonly=""></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="comment"><strong>Hall</strong></label><input class="form-control" type="text" name="hall" readonly=""></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="eid"><strong>Seat No</strong><br></label><input class="form-control" type="text" name="seat_no" readonly="" style="width: 100px;" value="4853"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-radio d-inline-flex"><input class="custom-control-input" type="radio" id="formCheck-1"><label class="custom-control-label" for="formCheck-1" style="font-size: 14px;">I have confirmed the Photocard of this Candidate</label></div>
-                                                </div>
-                                            </form><button class="btn btn-primary btn-sm" type="submit">Present for Exam</button>
-                                        </div>
-                                    </div>
-                                    <div class="card shadow">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 font-weight-bold">Other Settings</p>
-                                        </div>
-                                        <div class="card-body"><button class="btn btn-primary btn-sm" type="submit" style="background: var(--red);">Absent for Exam</button></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card shadow mb-5">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 font-weight-bold">Verified Candidates</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <form>
-                                        <div class="form-group"></div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <?php 
+                           if (isset($_GET['verifybtn'])) {
+    $search = $_GET['searchparam'];
+    // Retrieve Candidates Info from Candidates and Batchinfo Table
+    $sql = "SELECT * FROM candidates INNER JOIN batchinfo ON candidates.batchid = batchinfo.batchid WHERE candidates.appid LIKE '$search' LIMIT 1";
+  
+   if($result = mysqli_query($db, $sql)){
+       if (mysqli_num_rows($result) > 0){
+        $row = mysqli_fetch_assoc($result);
+$c_batchid = $row['batchid'];
+
+        // include_once("verifyprocess.php");
+
+
+        // Link Up with Batchtable to Pull Candidate's Verification and Hall Info
+        $sqlbatchtable = "SELECT * FROM batchinfo INNER JOIN batchtable ON batchinfo.batchid = batchtable.batchid WHERE batchtable.appid LIKE '$search' LIMIT 1";
+        $response = mysqli_query($db, $sqlbatchtable);
+        $c_batch = mysqli_fetch_assoc($response);
+        $seatNumber=$c_batch['seatno'];
+        $app_id=$c_batch['appid'];
+        //print_r($app_id);
+        //Assign Candidate to Hall
+       
+        switch ($seatNumber) {
+            case $seatNumber <=19:
+              $hallInfo = "D";
+             break;
+              case $seatNumber <=69:
+                $hallInfo = "C";
+              break;
+              case $seatNumber <=112:
+                $hallInfo = "B";
+                break;
+              case $seatNumber <=160:
+                $hallInfo = "A";
+                }
+
+                $sql22 = "UPDATE batchtable SET batchtable.updatedby = $uid WHERE appid = $app_id";
+                $query22 = mysqli_query($db, $sql22);
+                $sql33 = "UPDATE batchtable SET batchtable.hall = $hallInfo WHERE appid = $app_id";
+                $query33 = mysqli_query($db, $sql33);
+
+        //Convert Attendance Status
+        IF ($row['attendance_status'] == 1) {
+            $attend = "Present";}
+            else {$attend = "Absent";}
+            //Convert Exam Date to Long Date
+            //$edate = date('l, jS M', strtotime($row['edate']));
+           echo "
+           <div class='row mb-3'>
+           <div class='col-lg-4'>
+               <div class='card mb-3'>
+                   <div class='card-body text-center shadow'><img class='rounded-0 mb-3 mt-4' src='../../dashboard/application/".$row['photolink']."' width='160' height='160'>
+                       <div class='mb-3'></div>
+                   </div>
+               </div>
+               <div class='card shadow mb-4'>
+                   <div class='card-header py-3'>
+                       <h6 class='text-primary font-weight-bold m-0'>Candidate Name:</h6>
+                       <h5 class='text-capitalize'>".$row['sname']." ".$row['fname']." ".$row['oname']."</h5>
+                   </div>
+               </div>
+           </div>
+           <div class='col-md-6 col-lg-3 offset-2 offset-lg-0'>
+               <div class='card shadow mb-4'>
+                   <div class='card-header py-3'>
+                       <h6 class='text-primary font-weight-bold m-0'>Application Number:</h6>
+                       <h5 class='text-capitalize'>".$row['appid']."</h5>
+                   </div>
+               </div>
+           </div>
+           <div class='col-md-6 col-lg-3'>
+               <div class='card shadow mb-4'>
+                   <div class='card-header py-3'>
+                       <h6 class='text-primary font-weight-bold m-0'>Form Number:</h6>
+                       <h5 class='text-capitalize'>".$row['form_no']."</h5>
+                   </div>
+               </div>
+           </div>
+           <div class='col-md-6 col-lg-2'>
+               <div class='card shadow mb-4'>
+                   <div class='card-header py-3'>
+                       <h6 class='text-primary font-weight-bold m-0'>Program:</h6>
+                       <h5 class='text-capitalize'>".$row['progname']."</h5>
+                   </div>
+               </div>
+           </div>
+           <div class='col-md-6 col-lg-4'>
+               <div class='card shadow mb-4'>
+                   <div class='card-header py-3'>
+                       <h6 class='text-primary font-weight-bold m-0'>State:</h6>
+                       <h5 class='text-capitalize'>".$row['state']."</h5>
+                   </div>
+               </div>
+           </div>
+           <div class='col-md-6 col-lg-4'>
+           <div class='card shadow mb-4'>
+               <div class='card-header py-3'>
+                   <h6 class='text-primary font-weight-bold m-0'>Candidate's Batch:</h6>
+                   <h5 class='text-capitalize'>".$row['bcode']."</h5>
+                   
+               </div>
+           </div>
+           
+       </div>
+       </div>
+           </div>
+               <div class='row'>
+                   <div class='col'>
+                       <div class='card shadow mb-3'>
+                           <div class='card-header py-3'>
+                               <p class='text-primary m-0 font-weight-bold'>Verify Candidate for Today's Examination</p>
+                           </div>
+                           <div class='card-body'>
+                               <form>
+                                   <div class='form-row'>
+                                       <div class='col'>
+                                           <div class='form-group'><label for='purpose'><strong>Verification Status</strong></label><input class='form-control' type='text' name='att_status' required='' value=".$attend." style='background: rgb(16,241,146);color: #0e0e0e;' readonly=''></div>
+                                       </div>
+                                       <div class='col'>
+                                           <div class='form-group' style='margin: 8px;'><label for='amount' style='margin: -1px;'><strong>Exam Date</strong><input class='form-control' type='date' name='edate' autocomplete='off' value=".$row['edate']." required='' readonly=''><br></label></div>
+                                       </div>
+                                   </div>
+                                   <div class='form-row'>
+                                       <div class='col'>
+                                           <div class='form-group'><label for='comment'><strong>Exam Time</strong></label><input class='form-control' type='text' name='etime' value=".$row['etime']." readonly=''></div>
+                                       </div>
+                                       <div class='col'>
+                                           <div class='form-group'><label for='comment'><strong>Hall</strong></label><input class='form-control' type='text' name='hall' value=".$hallInfo." readonly=''></div>
+                                       </div>
+                                       <div class='col'>
+                                           <div class='form-group'><label for='comment'><strong>Seat No</strong><br></label><input class='form-control' type='text' name='seatno' value=".$c_batch['seatno']." style='width: 100px;' readonly=''></div>
+                                       </div>
+                                   </div>
+                                   <div class='form-group'>
+                                       <div class='custom-control custom-radio d-inline-flex'><input class='custom-control-input' type='radio' id='formCheck-1' required=''><label class='custom-control-label' for='formCheck-1' style='font-size: 14px;'>I have confirmed the Photocard of this Candidate</label></div>
+                                   </div>
+                               </form><button class='btn btn-primary btn-sm' type='submit'>Present for Exam</button>
+                           </div>
+                       </div>
+                       <div class='card shadow'>
+                           <div class='card-header py-3'>
+                               <p class='text-primary m-0 font-weight-bold'>Other Settings</p>
+                           </div>
+                           <div class='card-body'><button class='btn btn-primary btn-sm' type='submit' style='background: var(--red);'>Absent for Exam</button></div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       </div>";
+                                    
+                }
+            
+ 
+// Free result set
+    mysqli_free_result($result);
+    }
+    else{
+    echo "Sorry! No Result Found.";
+    }
+    } else{
+    echo "Enter Application Number in the Search above $sql. " . mysqli_error($db);
+    }
+    // Close connection
+
+    mysqli_close($db);
+
+?>
+
+           
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © FCTA SOMN 2022</span></div>
                 </div>
             </footer>
+
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
     <script src="../assets/js/jquery.min.js"></script>

@@ -73,7 +73,7 @@ $a_lname = $_SESSION['a_lname'];
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button"><i class="fas fa-binoculars"></i>&nbsp;<span>Verification</span></a>
                                     <div class="collapse" id="collapse-2">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="utilities-color.html">Verification Summary</a><a class="collapse-item" href="utilities-border.html">Verify Candidate</a><a class="collapse-item" href="utilities-animation.html">Print Attendance</a><a class="collapse-item" href="utilities-other.html">Other</a>
+                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../dashboard/verification/versummary.php">Verification Summary</a><a class="collapse-item" href="../dashboard/verification/verifycand.php">Verify Candidate</a><a class="collapse-item" href="../dashboard/verification/print_attend.php">Print Attendance</a><a class="collapse-item" href="utilities-other.html">Other</a>
                                         </div>
                                     </div>
                                 </div>
@@ -309,6 +309,7 @@ $a_lname = $_SESSION['a_lname'];
                                                     <div class='col-md-4'>
                                                         <div class='form-group'><label for='currbcode'><strong>Current Batch ID</strong></label><input class='form-control' type='text' name='currbcode' value=".$row['bcode']." readonly=''></div>
                                                     </div>
+                                                    
                                                     <div class='col-md-5'>
                                                         <div class='form-group' style='margin: 8px;'><label for='purpose'><strong>Exam Date</strong></label><label for='amount' style='margin: -1px;'><input class='form-control' type='date' name='curredate' style='margin: -6px;' readonly='' value=".$row['edate']."><br></label></div>
                                                     </div>
@@ -318,7 +319,7 @@ $a_lname = $_SESSION['a_lname'];
                                                         <div class='form-group'><label for='label'><strong>Enter New Batch</strong></label><span>e.g 4A</span><input class='form-control' type='text' name='newbcode' minlenght='2' maxlenght='2' required=''></div>
                                                     </div>
                                                     <div class='col'>
-                                                        <div class='form-group'><label for='label'><strong>Hall</strong></label><span>(e.g A, B)</span><input class='form-control' type='text' name='hall' maxlenght='2' required=''></div>
+                                                        <div class='form-group'><label for='label'><strong>Hall</strong></label><span>(e.g A, B)</span><input class='form-control' type='text' name='hall' maxlenght='1' required=''></div>
                                                     </div>
                                                     <div class='col'>
                                                         <div class='form-group'><label for='eid'><strong>Batch Num</strong><br></label><input class='form-control' type='text' name='batchnum' value=".$row['batchid']." readonly='' style='width: 100px;'></div>
@@ -344,7 +345,9 @@ $a_lname = $_SESSION['a_lname'];
                                         <div class="card-header py-3">
                                             <p class="text-primary m-0 font-weight-bold">Contact Settings</p>
                                         </div>
-                                        <div class="card-body"></div>
+                                        <div class="card-body">
+                                       
+                                        </div>
                                     </div>
                                 </div>
                             </div>

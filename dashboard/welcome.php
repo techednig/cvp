@@ -1,7 +1,7 @@
 <?php
 include ("../include/server.php");
 include ("../include/sessioncheck.php");
-include ("../include/p1checker.php");
+//include ("../include/p1checker.php");
 
 //Recover Info From Session
 $a_email = $_SESSION['a_email'];
@@ -88,7 +88,7 @@ $_SESSION['role'] = $role;
                                 <div><a class="btn btn-link text-light nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button"><i class="fas fa-users-cog"></i>&nbsp;<span>Application</span></a>
                                     <div class="collapse" id="collapse-1">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="../dashboard/application/newapp.php">New Application</a><a class="collapse-item" href="../dashboard/search.php">Search/Edit Application</a><a class="collapse-item" href="../../printphotocard.php">Print Photocard</a><a class="collapse-item" href="../application/activation.php">Activate Remita</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="../dashboard/application/newapp.php">New Application</a><a class="collapse-item" href="../dashboard/search.php">Search/Edit Application</a><a class="collapse-item" href="search.php">Print Photocard</a><a class="collapse-item" href="../dashboard/accessdenied.php">Activate Remita</a>
                                             <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="#">Batch Summary</a><a class="collapse-item" href="rebatch.php"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="rebatch.php"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@ $_SESSION['role'] = $role;
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button"><i class="fas fa-binoculars"></i>&nbsp;<span>Verification</span></a>
                                     <div class="collapse" id="collapse-2">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../verification/versummary.php">Verification Summary</a><a class="collapse-item" href="utilities-border.html">Verify Candidate</a><a class="collapse-item" href="../verification/print_attend.php">Print Attendance</a><a class="collapse-item" href="utilities-other.html">Other</a>
+                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../dashboard/verification/versummary.php">Verification Summary</a><a class="collapse-item" href="../dashboard/verification/verifycand.php">Verify Candidate</a><a class="collapse-item" href="../dashboard/verification/print_attend.php">Print Attendance</a><a class="collapse-item" href="../dashboard/accessdenied.php">Other</a>
                                         </div>
                                     </div>
                                 </div>
