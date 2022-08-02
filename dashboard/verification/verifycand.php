@@ -1,7 +1,7 @@
 <?php
 include ("../../include/server.php");
 include ("../../include/sessioncheck.php");
-//include ("../../include/p4checker.php");
+include ("../../include/p4checker.php");
 
 //Recover Info From Session
 $a_email = $_SESSION['a_email'];
