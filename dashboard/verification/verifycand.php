@@ -238,6 +238,20 @@ $privi = $_SESSION['privilege'];
                 </nav>
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4" style="text-align: center;">Verify Candidate for Examination</h3>
+                    <small class="form-text text-danger" style="font-size: 14px;">&nbsp;</div><?php
+    
+            
+                                        if(isset($_GET['msg'])){
+                                        $msg = base64_decode($_GET['msg']);
+                            
+                                            if($msg!=""){
+                                                echo "<i class='fas fa-exclamation-triangle' style='color: var(--bs-red)'></i>"; echo $msg;
+                                                //echo $_GET['msg'];
+                                            }
+                                            
+                                            }
+                                        
+                            ?></small> 
                     <?php 
                            if (isset($_GET['verifybtn'])) {
     $search = $_GET['searchparam'];
@@ -275,13 +289,15 @@ $c_batchid = $row['batchid'];
                 $hallInfo = "A";
                 }
 
-                $sql22 = "UPDATE batchtable SET batchtable.updatedby = $uid WHERE appid = $app_id";
+                // $sql22 = "UPDATE batchtable SET batchtable.updatedby = $uid WHERE appid = $app_id";
+                // $query22 = mysqli_query($db, $sql22);
+                $sql22 = "UPDATE batchtable SET batchtable.hall = '".$hallInfo."' WHERE appid = '".$app_id."'";
                 $query22 = mysqli_query($db, $sql22);
-                $sql33 = "UPDATE batchtable SET batchtable.hall = $hallInfo WHERE appid = $app_id";
+                $sql33 = "UPDATE batchtable SET batchtable.updatedby = '".$uid."' WHERE appid = '".$app_id."'";
                 $query33 = mysqli_query($db, $sql33);
 
         //Convert Attendance Status
-        IF ($row['attendance_status'] == 1) {
+        if ($row['attendance_status'] == 1) {
             $attend = "Present";}
             else {$attend = "Absent";}
             //Convert Exam Date to Long Date
@@ -294,6 +310,7 @@ $c_batchid = $row['batchid'];
                        <div class='mb-3'></div>
                    </div>
                </div>
+               <form action='verconfirm.php' method='POST'>
                <div class='card shadow mb-4'>
                    <div class='card-header py-3'>
                        <h6 class='text-primary font-weight-bold m-0'>Candidate Name:</h6>
@@ -352,7 +369,7 @@ $c_batchid = $row['batchid'];
                                <p class='text-primary m-0 font-weight-bold'>Verify Candidate for Today's Examination</p>
                            </div>
                            <div class='card-body'>
-                               <form>
+                               
                                    <div class='form-row'>
                                        <div class='col'>
                                            <div class='form-group'><label for='purpose'><strong>Verification Status</strong></label><input class='form-control' type='text' name='att_status' required='' value=".$attend." style='background: rgb(16,241,146);color: #0e0e0e;' readonly=''></div>
@@ -375,13 +392,16 @@ $c_batchid = $row['batchid'];
                                    <div class='form-group'>
                                        <div class='custom-control custom-radio d-inline-flex'><input class='custom-control-input' type='radio' id='formCheck-1' required=''><label class='custom-control-label' for='formCheck-1' style='font-size: 14px;'>I have confirmed the Photocard of this Candidate</label></div>
                                    </div>
-                               </form><button class='btn btn-primary btn-sm' type='submit'>Present for Exam</button>
+                               <button class='btn btn-primary btn-sm' type='submit' name='verifybtn' >Present for Exam</button>
                            </div>
                        </div>
+                       <input value='$app_id' name='app_id' type='text'/>
+                       </form>
                        <div class='card shadow'>
                            <div class='card-header py-3'>
                                <p class='text-primary m-0 font-weight-bold'>Other Settings</p>
                            </div>
+                           
                            <div class='card-body'><button class='btn btn-primary btn-sm' type='submit' style='background: var(--red);'>Absent for Exam</button></div>
                        </div>
                    </div>
