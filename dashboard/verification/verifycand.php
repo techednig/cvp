@@ -1,7 +1,7 @@
 <?php
 include ("../../include/server.php");
 include ("../../include/sessioncheck.php");
-include ("../../include/p4checker.php");
+//include ("../../include/p4checker.php");
 
 //Recover Info From Session
 $a_email = $_SESSION['a_email'];
@@ -262,7 +262,8 @@ $privi = $_SESSION['privilege'];
        if (mysqli_num_rows($result) > 0){
         $row = mysqli_fetch_assoc($result);
 $c_batchid = $row['batchid'];
-
+$attendance_stat=$row['attendance_status'];
+// echo $attendance_stat;
         // include_once("verifyprocess.php");
 
 
@@ -279,14 +280,14 @@ $c_batchid = $row['batchid'];
             case $seatNumber <=19:
               $hallInfo = "D";
              break;
-              case $seatNumber <=69:
-                $hallInfo = "C";
+              case $seatNumber <=57:
+                $hallInfo = "A";
               break;
-              case $seatNumber <=112:
-                $hallInfo = "B";
+              case $seatNumber <=107:
+                $hallInfo = "C";
                 break;
               case $seatNumber <=160:
-                $hallInfo = "A";
+                $hallInfo = "B";
                 }
 
                 // $sql22 = "UPDATE batchtable SET batchtable.updatedby = $uid WHERE appid = $app_id";
@@ -297,9 +298,20 @@ $c_batchid = $row['batchid'];
                 $query33 = mysqli_query($db, $sql33);
 
         //Convert Attendance Status
-        if ($row['attendance_status'] == 1) {
-            $attend = "Present";}
-            else {$attend = "Absent";}
+        // if ($row['attendance_status'] = 1) {
+        //     $attend = "Present";}
+        //     else {$attend = "Absent";}
+ 
+            echo $attendance_stat;
+        switch ($attendance_stat) {
+            case $attendance_stat == "1":
+              $att_stat = "Present";
+             break;
+              case $attendance_stat == "0":
+                $att_stat = "Absent";
+      
+                }
+
             //Convert Exam Date to Long Date
             //$edate = date('l, jS M', strtotime($row['edate']));
            echo "
@@ -372,7 +384,7 @@ $c_batchid = $row['batchid'];
                                
                                    <div class='form-row'>
                                        <div class='col'>
-                                           <div class='form-group'><label for='purpose'><strong>Verification Status</strong></label><input class='form-control' type='text' name='att_status' required='' value=".$attend." style='background: rgb(16,241,146);color: #0e0e0e;' readonly=''></div>
+                                           <div class='form-group'><label for='purpose'><strong>Verification Status</strong></label><input class='form-control' type='text' name='att_status' required='' value=".$att_stat." style='background: rgb(16,241,146);color: #0e0e0e;' readonly=''></div>
                                        </div>
                                        <div class='col'>
                                            <div class='form-group' style='margin: 8px;'><label for='amount' style='margin: -1px;'><strong>Exam Date</strong><input class='form-control' type='date' name='edate' autocomplete='off' value=".$row['edate']." required='' readonly=''><br></label></div>
@@ -395,7 +407,7 @@ $c_batchid = $row['batchid'];
                                <button class='btn btn-primary btn-sm' type='submit' name='verifybtn' >Present for Exam</button>
                            </div>
                        </div>
-                       <input value='$app_id' name='app_id' type='text'/>
+                       <input value='$app_id' name='app_id' type='hidden'/>
                        </form>
                        <div class='card shadow'>
                            <div class='card-header py-3'>

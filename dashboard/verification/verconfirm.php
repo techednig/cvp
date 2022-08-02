@@ -1,7 +1,7 @@
 <?php
 include ("../../include/server.php");
 include ("../../include/sessioncheck.php");
-include ("../../include/p4checker.php");
+//include ("../../include/p4checker.php");
 
 //Recover Info From Session
 //$a_email = $_SESSION['a_email'];
@@ -20,7 +20,7 @@ $sql5 = "UPDATE batchtable SET batchtable.updatedby = '".$uid."' WHERE appid = '
 
                 $msg = "Verification Complete For Candidate Appid: $app_id";
                 $msgEncoded = base64_encode($msg);
-                            header("Location:verifycand.php?msg=$msgEncoded searchparam=$app_id");
+                            header("Location:verifycand.php?msg=$msgEncoded");
          
 // }
 
