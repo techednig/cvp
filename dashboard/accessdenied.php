@@ -84,14 +84,14 @@ $role = $_SESSION['role'];
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button"><i class="fas fa-binoculars"></i>&nbsp;<span>Verification</span></a>
                                     <div class="collapse" id="collapse-2">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../verification/versummary.html">Verification Summary</a><a class="collapse-item" href="utilities-border.html">Verify Candidate</a><a class="collapse-item" href="../verification/print_attend.html">Print Attendance</a><a class="collapse-item" href="utilities-other.html">Other</a>
+                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../dashboard/verification/versummary.php">Verification Summary</a><a class="collapse-item" href="../dashboard/verification/verifycand.php">Verify Candidate</a><a class="collapse-item" href="../verification/print_attend.html">Print Attendance</a><a class="collapse-item" href="utilities-other.html">Other</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-4" href="#collapse-4" role="button"><i class="fas fa-microphone-alt"></i>&nbsp;<span>Interview</span></a>
                                     <div class="collapse" id="collapse-4">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">INTERVIEW SUB-MENU:</h6><a class="collapse-item" href="accessdenied.html">New Interview</a><a class="collapse-item" href="accessdenied.html">My Dashboard</a><a class="collapse-item" href="utilities-animation.html">Print Interview Attendance</a>
+                                            <h6 class="collapse-header">INTERVIEW SUB-MENU:</h6><a class="collapse-item" href="accessdenied.php">New Interview</a><a class="collapse-item" href="accessdenied.html">My Dashboard</a><a class="collapse-item" href="utilities-animation.html">Print Interview Attendance</a>
                                         </div>
                                     </div>
                                 </div>

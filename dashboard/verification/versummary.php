@@ -49,7 +49,7 @@
                     <div class="container-fluid d-flex flex-column p-0">
                         <hr class="sidebar-divider my-0">
                         <ul class="navbar-nav text-light" id="accordionSidebar-1">
-                            <li class="nav-item"><a class="nav-link text-muted" href="../welcome.html"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="../welcome.php"><i class="fas fa-tachometer-alt"></i><span class="text-white">&nbsp;Dashboard</span></a></li>
                             <hr class="sidebar-divider">
                             <div class="sidebar-heading">
                                 <p class="mb-0">INTERFACE</p>
@@ -58,8 +58,8 @@
                                 <div><a class="btn btn-link text-light nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button"><i class="fas fa-users-cog"></i>&nbsp;<span>Application</span></a>
                                     <div class="collapse" id="collapse-1">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="../application/newapp.html">New Application</a><a class="collapse-item" href="../application/search.html">Search/Edit Application</a><a class="collapse-item" href="../printphotocard.html">Print Photocard</a><a class="collapse-item" href="../application/activation.html">Activate Remita</a>
-                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="cards.html">Batch Summary</a><a class="collapse-item" href="../application/rebatch.html"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="../application/rebatch.html"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">CAPTURING SUB-MENU:</h6><a class="collapse-item" href="../application/newapp.php">New Application</a><a class="collapse-item" href="../application/search.php">Search/Edit Application</a><a class="collapse-item" href="../printphotocard.php">Print Photocard</a><a class="collapse-item" href="../application/activation.php">Activate Remita</a>
+                                            <h6 class="collapse-header" style="color: var(--blue);">BATCHING SUB-MENU:</h6><a class="collapse-item" href="cards.php">Batch Summary</a><a class="collapse-item" href="../application/rebatch.php"><i class="fa fa-recycle"></i>Add/ Edit Batch Info</a><a class="collapse-item" href="../application/rebatch.php"><i class="fa fa-recycle"></i>Rebatch Candidate</a>
                                         </div>
                                     </div>
                                 </div>
@@ -68,14 +68,14 @@
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button"><i class="fas fa-binoculars"></i>&nbsp;<span>Verification</span></a>
                                     <div class="collapse" id="collapse-2">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../verification/versummary.html">Verification Summary</a><a class="collapse-item" href="utilities-border.html">Verify Candidate</a><a class="collapse-item" href="../verification/print_attend.html">Print Attendance</a><a class="collapse-item" href="utilities-other.html">Other</a>
+                                            <h6 class="collapse-header">VERIFCATION SUB-MENU:</h6><a class="collapse-item" href="../verification/versummary.php">Verification Summary</a><a class="collapse-item" href="utilities-border.html">Verify Candidate</a><a class="collapse-item" href="../verification/print_attend.php">Print Attendance</a><a class="collapse-item" href="utilities-other.html">Other</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-4" href="#collapse-4" role="button"><i class="fas fa-microphone-alt"></i>&nbsp;<span>Interview</span></a>
                                     <div class="collapse" id="collapse-4">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header">INTERVIEW SUB-MENU:</h6><a class="collapse-item" href="accessdenied.html">New Interview</a><a class="collapse-item" href="accessdenied.html">My Dashboard</a><a class="collapse-item" href="utilities-animation.html">Print Interview Attendance</a>
+                                            <h6 class="collapse-header">INTERVIEW SUB-MENU:</h6><a class="collapse-item" href="accessdenied.php">New Interview</a><a class="collapse-item" href="accessdenied.php">My Dashboard</a><a class="collapse-item" href="utilities-animation.html">Print Interview Attendance</a>
                                         </div>
                                     </div>
                                 </div>
@@ -88,16 +88,16 @@
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button"><i class="fas fa-wrench"></i>&nbsp;<span>Configuration</span></a>
                                     <div class="collapse" id="collapse-3">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--red);">BATCHING CONFIG:</h6><a class="collapse-item" href="hallbatchconfig.html">Date/ Batch Config</a><a class="collapse-item" href="hallbatchconfig.html">Hall Capacity Config</a>
-                                            <h6 class="collapse-header" style="color: var(--red);">USER CONFIG:</h6><a class="collapse-item" href="addons/addnewadmin.html">Add New User</a><a class="collapse-item" href="manageusers.html">Manage Users</a><a class="collapse-item" href="blank.html">Privilege Config</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">BATCHING CONFIG:</h6><a class="collapse-item" href="hallbatchconfig.php">Date/ Batch Config</a><a class="collapse-item" href="hallbatchconfig.php">Hall Capacity Config</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">USER CONFIG:</h6><a class="collapse-item" href="addons/addnewadmin.php">Add New User</a><a class="collapse-item" href="manageusers.php">Manage Users</a><a class="collapse-item" href="blank.php">Privilege Config</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div><a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-5" href="#collapse-5" role="button"><i class="fas fa-envelope"></i>&nbsp;<span>Message Center</span></a>
                                     <div class="collapse" id="collapse-5">
                                         <div class="bg-white border rounded py-2 collapse-inner">
-                                            <h6 class="collapse-header" style="color: var(--red);">messaging center:</h6><a class="collapse-item" href="accessdenied.html">Compose Message</a><a class="collapse-item" href="accessdenied.html">View Messages</a>
-                                            <h6 class="collapse-header" style="color: var(--red);">CONFIG:</h6><a class="collapse-item" href="404.html">Message Center Config</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">messaging center:</h6><a class="collapse-item" href="accessdenied.php">Compose Message</a><a class="collapse-item" href="accessdenied.php">View Messages</a>
+                                            <h6 class="collapse-header" style="color: var(--red);">CONFIG:</h6><a class="collapse-item" href="404.php">Message Center Config</a>
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +210,7 @@
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><br>&lt;?Php Echo $Fullname; ?&gt;<br><br></span><img class="border rounded-circle img-profile" src="../assets/img/avatars/jpeg1.jpg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="profile.html"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="profile.php"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="../config/logout.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
