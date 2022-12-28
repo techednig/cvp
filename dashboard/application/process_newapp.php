@@ -62,7 +62,7 @@ if(is_uploaded_file($_FILES['fileToUpload'])){
 
 if (move_uploaded_file($tempname, $folder)) {
 
-    $msg = "Form No: ".$form_no." and The file ".htmlspecialchars(basename($_FILES["fileToUpload"]["name"]))." has been uploaded.";
+    $msg = "<p style='color: #05f589'>The Form No: ".$form_no." and The file ".htmlspecialchars(basename($_FILES["fileToUpload"]["name"]))." has been uploaded.</p>";
     $msgEncoded = base64_encode($msg);
 header("location:newapp.php?msg=$msgEncoded");
 
