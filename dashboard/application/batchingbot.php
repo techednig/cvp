@@ -24,7 +24,16 @@ $countbatchid = mysqli_num_rows($result);
 
 //start Batching
 
-IF ($countbatchid + 1 <= $hallcap){
+if ($countbatchid == 0) {
+    $countbatchid++;
+    $maxbatchid++;
+    $sql = "UPDATE candidates SET batchid = $maxbatchid WHERE appid = $new_id";
+    mysqli_query($db, $sql);
+    $sql = "INSERT INTO batchtable (appid, batchid, seatno, updatedby) VALUES ('$new_id', '$maxbatchid', '$countbatchid', '$uid')";
+    mysqli_query($db, $sql);
+    
+}
+ELSE IF ($countbatchid + 1 <= $hallcap){
     $sql = "UPDATE candidates SET batchid = $maxbatchid WHERE appid = $new_id";
     mysqli_query($db, $sql);
     $sql = "INSERT INTO batchtable (appid, batchid, seatno, updatedby) VALUES ('$new_id', '$maxbatchid', '$countbatchid' + 1, '$uid')";
