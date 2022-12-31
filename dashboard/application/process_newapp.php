@@ -30,7 +30,7 @@ $sql = "SELECT `form_no` FROM `candidates` WHERE `form_no` = $form_no";
 $result = mysqli_query($db, $sql);
 $row = mysqli_num_rows($result);
 
-if ($row > 1){
+if ($row >= 1){
     $msg = "The Form Number: ".$form_no." Already Exists. Please Investigate Duplicate Form Number";
     $msgEncoded = base64_encode($msg);
 header("location:newapp.php?msg=$msgEncoded");
